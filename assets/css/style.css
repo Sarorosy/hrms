@@ -1,0 +1,123 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto',sans-serif;
+}
+body{
+    background:#e5edf9 !important;
+    margin: 0 !important;
+    
+}
+svg{
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+}
+.scrollbar-blue {
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+    overflow-y: auto; /* Enable vertical scrolling */
+
+    position: relative; /* Positioning for the custom scrollbar */
+}
+
+.scrollbar-blue::-webkit-scrollbar {
+    width: 6px; /* Width of the scrollbar */
+    height: 6px; /* Height of the scrollbar */
+    background-color: transparent; /* Background color behind the scrollbar */
+}
+
+.scrollbar-blue::-webkit-scrollbar-track {
+    background-color: transparent; /* Color of the track */
+}
+
+.scrollbar-blue::-webkit-scrollbar-thumb {
+    background-color: blue; /* Color of the thumb */
+    border-radius: 3px; /* Rounded corners of the thumb */
+    border: 1px solid transparent; /* Transparent border around the thumb */
+}
+
+.scrollbar-blue::-webkit-scrollbar-thumb:hover {
+    background-color: darkblue; /* Color of the thumb on hover */
+}
+#eye{
+    padding: 8px;
+    border-radius: 50%;
+    background-color: rgba(0, 60, 128, 0.4);
+    color:rgba(0, 60, 128); ;
+    font-size: 40px;
+}
+#calendari{
+    padding: 7px;
+    border-radius: 50%;
+    /* background-color: rgba(0, 60, 128, 0.4); */
+    background-color:rgba(0, 60, 128); 
+    color: white;
+    font-size: 35px;
+}
+#notice{
+    padding: 7px;
+    border-radius: 50%;
+    /* background-color: rgba(0, 60, 128, 0.4); */
+    background-color:rgba(0, 60, 128); 
+    color: white;
+    font-size: 35px;
+}
+#cake{
+    padding:2px 7px;
+    border-radius: 50%;
+    /* background-color: rgba(0, 60, 128, 0.4); */
+    background-color:rgba(0, 60, 128); 
+    color: white;
+    font-size: 35px;
+}
+#edit{
+    padding: 8px;
+    border-radius: 50%;
+    background-color: rgba(207, 207, 0, 0.5);
+    color:rgb(79, 79, 0); ;
+    font-size: 40px;
+}
+#trash{
+    padding: 4px 8px;
+    border-radius: 50%;
+    background-color: rgba(128, 0, 26, 0.4);
+    color:rgba(128, 0, 26); ;
+    font-size: 40px;
+}
+.w-300{
+    width: 300px;
+}
+.logo-box h1{
+    color: #000034 !important;
+}
+.nav-ul li:hover{
+    color: white;
+    transition: .3s;
+}
+.logout-li:hover{
+    background-color: rgba(255, 0, 0, 0.7);
+    transition: .3s;
+    border-radius: 10px;
+}
+
+  
+.bluetext{
+    color: #000034 !important;
+}
+.blue-bg{
+    background-color: #000034 !important;
+}
+.blue-border{
+    border: 1px solid #000034 ;
+}
+#profile-pic{
+    border: 1px solid #000034 !important;
+}
+.border-top-blue{
+    border-top: 3px solid #000034;
+}
+.blue-hover:hover{
+    color: #000034 !important;
+}
