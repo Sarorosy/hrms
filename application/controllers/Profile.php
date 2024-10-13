@@ -53,6 +53,7 @@ class Profile extends CI_Controller {
                 'age' => $this->input->post('age'),
                 'dob' => $this->input->post('dob'),
                 'phone_number' => $this->input->post('phone_number'),
+                'secondary_phone_number' => $this->input->post('secondary_phone_number'),
                 'blood_group' => $this->input->post('blood_group'),
                 'nationality' => $this->input->post('nationality'),
                 'gender' => $this->input->post('gender'),

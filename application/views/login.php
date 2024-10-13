@@ -20,7 +20,7 @@
     <div class="container  mx-auto  mt-20 bg-white rounded-lg shadow-lg shadow-grey-300">
         <div class="logo-box flex bg-white mx-auto items-center justify-center py-2 px-1 my-3">
             <img src="<?php echo base_url('assets/images/vda-logo.png') ?>" alt="Logo" class="w-10 rounded">
-            <h3>VDA HR</h3>
+            <h3>VDA SOLUTIONS</h3>
         </div>
         <div class=" flex items-center justify-center bg-white ">
             <div class="bg-white ">

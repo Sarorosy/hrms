@@ -28,6 +28,8 @@ public function get_positions()
 
     public function get_all_employees()
     {
+        $this->db->where('id !=', $this->session->userdata('user_id'));
+        $this->db->where('role !=', 'SUPERADMIN');
         return $this->db->get('tbl_admin')->result_array();
     }
     public function get_employee_details($employee_id)

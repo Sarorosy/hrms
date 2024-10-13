@@ -89,6 +89,9 @@
 let tablethree = new DataTable('#leaverequests', {
     order: [[0, 'desc']]  // Assuming 'id' is in the first column (index 0)
 });
+let tablefour = new DataTable('#complaintstable', {
+    order: [[4, 'desc']]  // Assuming 'id' is in the first column (index 0)
+});
 </script>
 </body>
 </html>

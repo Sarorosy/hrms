@@ -48,6 +48,7 @@
             <div class="mb-4">
                 <label for="position" class="block text-sm font-medium text-gray-700">Position:</label>
                 <select id="position" name="position" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                    <option value="">Select Position</option>
                     <?php foreach ($positions as $position): ?>
                         <option value="<?php echo $position['id']; ?>"><?php echo $position['name']; ?></option>
                     <?php endforeach; ?>
@@ -56,6 +57,7 @@
             <div class="mb-4">
                 <label for="manager_id" class="block text-sm font-medium text-gray-700">Manager:</label>
                 <select id="manager_id" name="manager_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                <option value="">Select Manager</option>
                     <?php foreach ($admins as $admin): ?>
                         <option value="<?php echo $admin['id']; ?>"><?php echo $admin['name']; ?></option>
                     <?php endforeach; ?>

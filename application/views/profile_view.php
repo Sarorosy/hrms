@@ -106,7 +106,7 @@
                     </div>
                 </div>
                 <div class="flex space-x-4 mb-6">
-                    <div class="w-1/2">
+                    <div class="w-1/3">
                         <label for="gender" class="block text-sm font-bold text-gray-700">Gender</label>
                         <select id="gender" name="gender" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
                             <option value="Male" <?php echo set_select('gender', 'Male', ($user['gender'] ?? '') == 'Male'); ?>>Male</option>
@@ -114,9 +114,13 @@
                             <option value="Other" <?php echo set_select('gender', 'Other', ($user['gender'] ?? '') == 'Other'); ?>>Other</option>
                         </select>
                     </div>
-                    <div class="w-1/2">
+                    <div class="w-1/3">
                         <label for="phone_number" class="block text-sm font-bold text-gray-700">Phone Number</label>
                         <input type="text" id="phone_number" name="phone_number" value="<?php echo set_value('phone_number', $user['phone_number'] ?? ''); ?>" required class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                    </div>
+                    <div class="w-1/3">
+                        <label for="secondary_phone_number" class="block text-sm font-bold text-gray-700">Secondary Phone Number</label>
+                        <input type="text" id="secondary_phone_number" name="secondary_phone_number" value="<?php echo set_value('secondary_phone_number', $user['secondary_phone_number'] ?? ''); ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
                     </div>
                 </div>
 

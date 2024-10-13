@@ -58,7 +58,7 @@ class CI_Loader {
 	 * @var	int
 	 */
 	protected $_ci_ob_level;
-	public   $Dashboard_model, $load, $hooks, $config, $uri, $utf8, $log,$exceptions, $router, $output, $input,$security, $lang, $db, $session, $form_validation, $benchmark, $Login_model, $Attendance_model, $Admin_model, $Manageleave_model, $Complaints_model, $Profile_model,$Rooms_model, $EMployee_model, $Employees_model,$Message_model, $agent, $Positions_model;
+	public   $Dashboard_model,$Feedback_model, $load, $hooks, $config, $uri, $utf8, $log,$exceptions, $router, $output, $input,$security, $lang, $db, $session, $form_validation, $benchmark, $Login_model, $Attendance_model, $Admin_model, $Manageleave_model, $Complaints_model, $Profile_model,$Rooms_model, $EMployee_model, $Employees_model,$Message_model, $agent, $Positions_model;
 
 	/**
 	 * List of paths to load views from

@@ -309,7 +309,7 @@ function markAsRead(element) {
                             <li class="text-white">
                                 <a href="<?php echo base_url('Manageleave/leave_summary') ?>" class="block py-2 px-1 "><i class="fas fa-suitcase"></i> View Summary</a>
                             </li>
-                            <?php if($this->session->userdata('admin_type') == 'SUPERADMIN'){ ?>
+                            <?php if($this->session->userdata('admin_type') == 'SUPERADMIN' || $this->session->userdata('admin_type') == 'ADMIN'){ ?>
                                 <li class="text-white">
                                     <a href="<?php echo base_url('Manageleave/view_leave_request') ?>" class="block py-2 px-1 "><i class="fas fa-history"></i> View Requests</a>
                                 </li>
@@ -322,7 +322,7 @@ function markAsRead(element) {
                         <a href="<?php echo base_url('Rooms') ?>" class="block py-2 px-4 "><i class="fas fa-door-open"></i> Rooms</a>
                     </li>
 
-                    <?php if ($this->session->userdata('admin_type') == 'SUPERADMIN' || $this->session->userdata('admin_type') == 'ADMIN') { ?>
+                    <?php if ($this->session->userdata('admin_type') == 'SUPERADMIN' || $this->session->userdata('admin_type') == 'HR') { ?>
                         <li class="<?php echo $this->uri->uri_string() == 'Employees' ? 'active-link' : ''; ?>">
                             <a href="<?php echo base_url('Employees') ?>" class="block py-2 px-4 "><i class="fas fa-users"></i> Employees</a>
                         </li>
@@ -331,6 +331,11 @@ function markAsRead(element) {
                         </li>
                         <li class="<?php echo $this->uri->uri_string() == 'Positions' ? 'active-link' : ''; ?>">
                             <a href="<?php echo base_url('Positions') ?>" class="block py-2 px-4 "><i class="fas fa-smile-beam"></i> Positions</a>
+                        </li>
+                    <?php } ?>
+                    <?php if ($this->session->userdata('admin_type') == 'ADMIN') { ?>
+                        <li class="<?php echo $this->uri->uri_string() == 'Employees/view_team' ? 'active-link' : ''; ?>">
+                            <a href="<?php echo base_url('Employees/view_team') ?>" class="block py-2 px-4 "><i class="fas fa-users"></i> View Team</a>
                         </li>
                     <?php } ?>
                     <li>

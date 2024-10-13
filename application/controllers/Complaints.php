@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Complaints extends CI_Controller {
+    public $Dashboard_model, $Complaints_model, $session, $form_validation, $agent;
 
     public function __construct() {
         parent::__construct();

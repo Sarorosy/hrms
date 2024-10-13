@@ -4,12 +4,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Employees extends CI_Controller {
 
-    public $Employees_model, $session, $form_validation,$Dashboard_model, $agent;
+    public $Employees_model, $session, $form_validation,$Dashboard_model, $agent, $Feedback_model, $Positions_model;
 
     public function __construct()
     {
         parent::__construct();
         $this->load->model('Employees_model');
+        $this->load->model('Positions_model');
+        $this->load->model('Feedback_model');
         $this->load->library('user_agent');
     }
 
@@ -23,7 +25,7 @@ class Employees extends CI_Controller {
     {
         // Fetch employee details from database
         $data['employee'] = $this->Employees_model->get_employee_details($employee_id);
-
+        $data['feedback'] = $this->Feedback_model->get_feedback_by_id($employee_id);
         // Load view with template
         $data['main_content'] = 'admin/view_employee'; // Assuming view file is view_employee.php
         $this->load->view('template', $data);
@@ -53,6 +55,7 @@ class Employees extends CI_Controller {
         $data['admins'] = $this->Employees_model->get_admins();
         // Fetch employee details from database
         $data['employee'] = $this->Employees_model->get_employee_details($employee_id);
+        $data['positions'] = $this->Positions_model->get_all_positions();
 
         // Load view with template
         $data['main_content'] = 'admin/edit_employee'; // Assuming view file is edit_employee.php
@@ -61,12 +64,18 @@ class Employees extends CI_Controller {
 
     public function update_employee($employee_id)
     {
-        // Validate form input (you can add more validation rules as needed)
-        $this->form_validation->set_rules('name', 'Name', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-        $this->form_validation->set_rules('status', 'Status', 'required');
-        $this->form_validation->set_rules('role', 'Role', 'required');
-        $this->form_validation->set_rules('manager_id', 'Manager', 'required');
+        // Validate form input
+        $this->form_validation->set_rules('name', 'Name', '');
+        $this->form_validation->set_rules('email', 'Email', 'valid_email');
+        $this->form_validation->set_rules('status', 'Status', '');
+        $this->form_validation->set_rules('role', 'Role', '');
+        $this->form_validation->set_rules('age', 'Age', 'integer');
+        $this->form_validation->set_rules('dob', 'Date of Birth', '');
+        $this->form_validation->set_rules('gender', 'Gender', '');
+        $this->form_validation->set_rules('personal_email', 'Personal Email', 'valid_email');
+        $this->form_validation->set_rules('marital_status', 'Marital Status', '');
+        $this->form_validation->set_rules('address', 'Address', '');
+        $this->form_validation->set_rules('family_details', 'Family Details');
 
         if ($this->form_validation->run() == false) {
             // Form validation failed, reload the edit form with validation errors
@@ -78,8 +87,69 @@ class Employees extends CI_Controller {
                 'email' => $this->input->post('email'),
                 'status' => $this->input->post('status'),
                 'role' => $this->input->post('role'),
-                'manager_id' => $this->input->post('manager_id')
+                'age' => $this->input->post('age'),
+                'dob' => $this->input->post('dob'),
+                'gender' => $this->input->post('gender'),
+                'personal_email' => $this->input->post('personal_email'),
+                'marital_status' => $this->input->post('marital_status'),
+                'address1' => $this->input->post('address1'),
+                'address2' => $this->input->post('address2'),
+                'address3' => $this->input->post('address3'),
+                'city' => $this->input->post('city'),
+                'state' => $this->input->post('state'),
+                'zip_code' => $this->input->post('zip_code'),
+                'father_name' => $this->input->post('father_name'),
+                'mother_name' => $this->input->post('mother_name'),
+                'spouse_name' => $this->input->post('spouse_name'),
+                'son_count' => $this->input->post('son_count'),
+                'daughter_count' => $this->input->post('daughter_count'),
+                'position' => $this->input->post('position'),
+                'ctc' => $this->input->post('ctc'),
+                'joining_date' => $this->input->post('joining_date'),
+                'employment_type' => $this->input->post('employment_type'),
+                'manager_id' => $this->input->post('manager_id'),
+                'phone_number' => $this->input->post('phone_number'),
             );
+
+            // Handle file uploads
+            if (!empty($_FILES['passport_photo']['name'])) {
+                $passport_photo = $this->upload_file('passport_photo');
+                if ($passport_photo) {
+                    $update_data['passport_photo'] = $passport_photo;
+                }
+            }
+            // Handle file uploads
+            if (!empty($_FILES['profile_pic']['name'])) {
+                $profilepic = $this->upload_file('profile_pic');
+                if ($profilepic) {
+                    $update_data['profile_pic'] = $profilepic;
+                }
+            }
+
+            if (!empty($_FILES['aadhar']['name'])) {
+                $aadhar_card = $this->upload_file('aadhar');
+                if ($aadhar_card) {
+                    $update_data['aadhar'] = $aadhar_card;
+                }
+            }
+            if (!empty($_FILES['degree']['name'])) {
+                $degree = $this->upload_file('degree');
+                if ($degree) {
+                    $update_data['degree'] = $degree;
+                }
+            }
+            if (!empty($_FILES['pg']['name'])) {
+                $pg = $this->upload_file('pg');
+                if ($pg) {
+                    $update_data['pg'] = $pg;
+                }
+            }
+            if (!empty($_FILES['cv']['name'])) {
+                $cv = $this->upload_file('cv');
+                if ($cv) {
+                    $update_data['cv'] = $cv;
+                }
+            }
 
             $result = $this->Employees_model->update_employee($employee_id, $update_data);
 
@@ -92,7 +162,7 @@ class Employees extends CI_Controller {
             }
 
             // Redirect back to view employee details
-            redirect(base_url('Employees/view_employee/'.$employee_id));
+            redirect(base_url('Employees/view_employee/' . $employee_id));
         }
     }
 
@@ -114,7 +184,7 @@ class Employees extends CI_Controller {
         $this->form_validation->set_rules('username', 'Username', 'required|is_unique[tbl_admin.username]');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('role', 'Role', 'required|in_list[USER,ADMIN,SUPERADMIN,HR]');
-        $this->form_validation->set_rules('manager_id', 'Manager', 'required');
+        
         $this->form_validation->set_rules('ctc', 'CTC', 'required|numeric');
         $this->form_validation->set_rules('joining_date', 'Joining Date', 'required');
         $this->form_validation->set_rules('employment_type', 'Employment Type', 'required|in_list[Full-time,Part-time]');

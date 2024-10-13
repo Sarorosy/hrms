@@ -34,8 +34,9 @@
     <div id="complaints-container" class="p-6 ">
       <!-- Complaints table will be dynamically updated here -->
       <?php if (!empty($complaints)) : ?>
-        <table class="w-full caption-bottom text-sm">
+        <table class="w-full caption-bottom text-sm" id="complaintstable">
           <thead class="[&amp;_tr]:border-b">
+            
             <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
               <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 cursor-pointer">User ID</th>
               <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 cursor-pointer">Subject</th>

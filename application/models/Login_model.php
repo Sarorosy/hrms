@@ -10,16 +10,25 @@ class Login_model extends CI_Model {
     }
 
     public function get_user($username, $password)
-    {
-        $this->db->where('email', $username);
-        $this->db->where('decrypt_pass', $password);
-        $query = $this->db->get('tbl_admin');
+{
+    $this->db->where('email', $username);
+    $this->db->where('status', 'active');
+    $query = $this->db->get('tbl_admin');
 
-        if ($query->num_rows() == 1) {
-            return $query->row();
+    // Check if the query returned a result
+    if ($query->num_rows() == 1) {
+        $user = $query->row();
+
+        // Verify the password
+        if (password_verify($password, $user->pass)) {
+            return $user; // Return the user object if the password matches
         } else {
-            return false;
+            return false; // Incorrect password
         }
+    } else {
+        return false; // User not found or inactive
     }
+}
+
     
 }

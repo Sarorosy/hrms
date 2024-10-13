@@ -118,6 +118,9 @@ svg{
 .border-top-blue{
     border-top: 3px solid #000034;
 }
+.border-left-blue{
+    border-left: 3px solid #000034;
+}
 .blue-hover:hover{
     color: #000034 !important;
 }

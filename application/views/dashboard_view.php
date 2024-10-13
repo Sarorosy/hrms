@@ -39,10 +39,10 @@
                 </h2>
                 <p class="text-white">
                     <?php 
-                    if ($this->session->userdata('position')) {
+                    if ($this->session->userdata('position') && is_numeric($this->session->userdata('position'))) {
                         echo getPositionById($this->session->userdata('position'));
                     } else {
-                        echo "Software Developer";
+                        echo $this->session->userdata('admin_type');
                     }
                     ?>
                 </p>
@@ -86,21 +86,22 @@
     </div>
     </div>
  
-    <div class="flex justify-start ">
-    <div class="bg-white rounded-lg shadow-md p-6 mb-6 border-top-blue max-w-lg mr-2">
-        <h3 class="text-xl font-semibold mb-4 blue-text">Upcoming Birthdays</h3>
+    <div class="flex justify-start space-x-4">
+    <!-- Upcoming Birthdays -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-6 border-left-blue max-w-lg mr-2">
+        <h3 class="text-xl font-semibold mb-4 bluetext">Upcoming Birthdays</h3>
         <?php if (!empty($birthdays)) : ?>
-            <div class="p-6 grid gap-6">
+            <div class="grid gap-4">
                 <?php foreach ($birthdays as $birthday) : ?>
-                    <div class="flex items-center gap-4">
-                        <span class="relative flex shrink-0 overflow-hidden rounded-full h-12 w-12">
-                            <img class="aspect-square h-full w-full" alt="<?php echo $birthday['name']; ?>" src="<?php echo base_url('uploads/userdetailuploads/' . get_profile_pic_by_id($birthday['id'])) ?>" />
+                    <div class="flex items-center gap-4 p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-200">
+                        <span class="relative flex shrink-0 overflow-hidden rounded-full h-14 w-14">
+                            <img class="aspect-square h-full w-full object-cover" alt="<?php echo $birthday['name']; ?>" src="<?php echo base_url('uploads/userdetailuploads/' . get_profile_pic_by_id($birthday['id'])) ?>" />
                         </span>
                         <div class="flex-1">
-                            <div class="font-semibold"><?php echo $birthday['name']; ?></div>
-                            <div class="text-muted-foreground"><?php echo date('F d, Y', strtotime($birthday['dob'])); ?></div>
+                            <div class="font-semibold text-gray-800"><?php echo $birthday['name']; ?></div>
+                            <div class="text-gray-500"><?php echo date('F d, Y', strtotime($birthday['dob'])); ?></div>
                         </div>
-                        <button class="inline-flex items-center blue-hover justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background  h-9 rounded-md px-3 blue-border" onclick="sendwishes()">
+                        <button class="inline-flex items-center justify-center text-sm font-medium text-white blue-bg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md px-3 py-1 transition duration-200" onclick="sendwishes()">
                             Send Wishes
                         </button>
                     </div>
@@ -110,54 +111,55 @@
             <p class="text-gray-500">No upcoming birthdays found.</p>
         <?php endif; ?>
     </div>
-     <!-- Upcoming Holidays -->
-     <div class="bg-white rounded-lg shadow-md p-6 mb-6 border-top-blue max-w-lg ">
-    <h3 class="text-xl font-semibold mb-4 blue-text0 flex items-center"><i class="fas fa-calendar-week mr-2"></i> Upcoming Holidays</h3>
-    <?php if (!empty($holidays)) : ?>
-        <div class="p-6 grid gap-6">
-            <?php foreach ($holidays as $holiday) : ?>
-                <div class="flex items-start space-x-3">
-                    <div class="blue-bg text-white font-semibold text-center py-2 px-4 rounded-md shadow-md">
-                        <?php echo date('M d', strtotime($holiday['holiday_date'])); ?>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-gray-900 text-lg font-semibold mb-1"><?php echo $holiday['title']; ?></p>
-                        <p class="text-gray-500 text-sm"><?php echo date('l', strtotime($holiday['holiday_date'])); ?></p>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    <?php else : ?>
-        <p class="text-gray-500">No upcoming holidays found.</p>
-    <?php endif; ?>
-</div>
 
-<div class="bg-white rounded-lg shadow-md p-6 mx-auto w-1/3 border-top-blue ml-2 h-auto">
-    <h3 class="text-2xl font-bold mb-4"><i class="fas fa-calendar-week"></i>Upcoming Events</h3>
-    <?php if (!empty($events)) : ?>
-        <div class="flex flex-col">
-            <?php foreach ($events as $event) : ?>
-                <div class="flex items-start space-x-3 flex-col">
-                    <div class="blue-bg text-white font-semibold text-center py-2 px-4 rounded-md shadow-md">
-                        <?php echo date('M d', strtotime($event['date'])); ?>
+    <!-- Upcoming Holidays -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-6 border-left-blue max-w-lg">
+        <h3 class="text-xl font-semibold mb-4 bluetext flex items-center"><i class="fas fa-calendar-week mr-2"></i> Upcoming Holidays</h3>
+        <?php if (!empty($holidays)) : ?>
+            <div class="grid gap-4">
+                <?php foreach ($holidays as $holiday) : ?>
+                    <div class="flex items-start space-x-3 p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-200">
+                        <div class="blue-bg text-white font-semibold text-center py-2 px-4 rounded-md shadow-md">
+                            <?php echo date('M d', strtotime($holiday['holiday_date'])); ?>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-gray-900 text-lg font-semibold mb-1"><?php echo $holiday['title']; ?></p>
+                            <p class="text-gray-500 text-sm"><?php echo date('l', strtotime($holiday['holiday_date'])); ?></p>
+                        </div>
                     </div>
-                    <div class="flex flex-col">
-                        <p class="text-gray-900 text-lg font-semibold mb-1"><?php echo $event['name']; ?></p>
-                        
-                        <p class="text-gray-500 text-sm"><?php echo $event['time_range']; ?></p>
-                    </div>
-                    <div class="w-full">
-                    <p class="text-gray-500 text-sm"><?php echo $event['event_description']; ?></p>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    <?php else : ?>
-        <p class="text-gray-500">No upcoming events found.</p>
-    <?php endif; ?>
-</div>
-
+                <?php endforeach; ?>
+            </div>
+        <?php else : ?>
+            <p class="text-gray-500">No upcoming holidays found.</p>
+        <?php endif; ?>
     </div>
+
+    <!-- Upcoming Events -->
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-6 border-left-blue max-w-lg">
+        <h3 class="text-2xl font-bold mb-4 bluetext"><i class="fas fa-calendar-week"></i> Upcoming Events</h3>
+        <?php if (!empty($events)) : ?>
+            <div class="flex flex-col">
+                <?php foreach ($events as $event) : ?>
+                    <div class="flex items-start space-x-3 flex-col p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-200">
+                        <div class="blue-bg text-white font-semibold text-center py-2 px-4 rounded-md shadow-md">
+                            <?php echo date('M d', strtotime($event['date'])); ?>
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-gray-900 text-lg font-semibold mb-1"><?php echo $event['name']; ?></p>
+                            <p class="text-gray-500 text-sm"><?php echo $event['time_range']; ?></p>
+                        </div>
+                        <div class="w-full">
+                            <p class="text-gray-500 text-sm"><?php echo $event['event_description']; ?></p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else : ?>
+            <p class="text-gray-500">No upcoming events found.</p>
+        <?php endif; ?>
+    </div>
+</div>
+
 
     
    
