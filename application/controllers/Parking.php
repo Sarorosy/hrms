@@ -51,6 +51,33 @@ class Parking extends CI_Controller {
     
         redirect(base_url('Parking')); // Redirect to index method of Parking controller
     }
+	public function delete_slot($slot_id) {
+		// Make sure the user is an admin or superadmin
+		if ($this->session->userdata('admin_type') == 'ADMIN' || $this->session->userdata('admin_type') == 'SUPERADMIN') {
+			// Set occupied = 0 and clear user_id and vehicle_type for the specified slot_id
+			$this->Parking_model->free_slot($slot_id);
+			$this->session->set_flashdata('success', 'Parking slot freed successfully!');
+		} else {
+			$this->session->set_flashdata('error', 'You do not have permission to perform this action.');
+		}
+		
+		redirect(base_url('Parking'));
+	}
+	public function add_slot() {
+		$this->load->model('Parking_model'); // Ensure you have the Parking_model loaded
+	
+		$data = array(
+			'slot_name' => $this->input->post('slot_name'),
+			'occupied' => 0, // Set to 0 since it's a new slot
+			'created_at' => date('Y-m-d H:i:s'),
+			'user_id' => NULL, // Can be NULL initially
+			'vehicle_type' => "" // Can be NULL initially
+		);
+	
+		$this->Parking_model->insert_slot($data); // Insert data into tbl_parking_slots
+		redirect(base_url('parking')); // Redirect to the view slots page
+	}
+	
     public function requests() {
         // Fetch all parking requests
         $data['requests'] = $this->Parking_model->get_all_requests();

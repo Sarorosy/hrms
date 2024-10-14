@@ -23,7 +23,44 @@ class Attendance extends CI_Controller {
         $data['main_content'] = 'attendance_view';
         $this->load->view('template', $data);
     }
+    public function view_attendance($user_id) {
+        // Load models
+        $this->load->model('Attendance_model');
+        $this->load->model('Admin_model');
 
+        // Fetch attendance data for the user
+        $data['attendance'] = $this->Attendance_model->get_attendance_by_user($user_id);
+        $data['user'] = $this->Admin_model->get_user($user_id); // Fetch user data
+
+        // Check if user data exists
+        if (!$data['user']) {
+            show_404(); // Show 404 page if user not found
+        }
+
+        // Load the view with attendance data
+        $data['title'] = 'Attendance for ' . $data['user']->name; // Assuming the user model has a 'name' field
+        $data['main_content'] = 'user_attendance_view'; // Adjust as per your view structure
+
+        // Pass holidays to the view if needed
+        $data['holidays'] = $this->Attendance_model->get_holidays();
+
+        $this->load->view('template', $data);
+    }
+
+    public function view_work_details($id) {
+    
+        // Fetch the work details for the given user ID
+        $data['work_details'] = $this->Attendance_model->get_work_details_by_user($id);
+        $data['user'] = $this->Admin_model->get_user($id); // Fetch user data
+
+        // Check if user data exists
+        if (!$data['user']) {
+            show_404(); // Show 404 page if user not found
+        }
+        $data['main_content'] = 'admin/work_details_view';
+        // Load the view and pass the work details data
+        $this->load->view('template', $data);
+    }
     public function mark_login() {
         $user_id = $this->session->userdata('user_id');
         $result = $this->Attendance_model->mark_login($user_id);

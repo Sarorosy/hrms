@@ -169,8 +169,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const leaveBalance = <?php echo $this->session->userdata('leave_balance') ?? 90; ?>;
-    const usedLeave = 90 - leaveBalance;
+    const leaveBalance = <?php echo $this->session->userdata('leave_balance') ?? 0; ?>;
+    const usedLeave = 12 - leaveBalance;
     
     const ctx = document.getElementById('leaveDoughnutChart').getContext('2d');
     const leaveDoughnutChart = new Chart(ctx, {

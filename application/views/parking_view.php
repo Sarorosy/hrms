@@ -22,7 +22,12 @@
     <?php endif; ?>
 
 
-    <h2 class="text-3xl font-bold text-center my-4">Parking Slots</h2>
+    <div class="flex justify-between items-center"><h2 class="text-3xl font-bold text-center my-4">Parking Slots</h2>
+    <?php if ($this->session->userdata('admin_type') == 'ADMIN' || $this->session->userdata('admin_type') == 'SUPERADMIN'): ?>
+    <button id="addSlotButton" class="blue-bg text-white font-bold py-2 px-4 rounded-md h-10 ">
+        Add Parking Slot <i class="fas fa-parking"></i>
+    </button>
+<?php endif; ?></div>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <?php foreach ($slots as $slot): ?>
             <div class="relative p-4 rounded-lg shadow-md 
@@ -42,12 +47,18 @@
     <?php if ($slot['occupied'] && isset($slot['user_id'])): ?>
         <div class="absolute top-100 right-100 mt-2 mr-2 hover-tooltip">
             <div class="tooltip">
+            <?php if ($this->session->userdata('admin_type') == 'ADMIN' || $this->session->userdata('admin_type') == 'SUPERADMIN'): ?>
+                                <button onclick="deleteSlot(<?php echo $slot['slot_id']; ?>)" class="mt-2 bg-red-600 text-white px-2 py-1 rounded my-3">
+                                <i class="fas fa-user-times"></i>  Free Space
+                                </button>
+                            <?php endif; ?>
                 <p><strong>User ID:</strong> <?php echo $slot['user_id']; ?></p>
                 <?php if ($slot['vehicle_type'] == 'car'): ?>
                                 <img src="<?php echo base_url('assets/images/car.png'); ?>" alt="Car">
                             <?php elseif ($slot['vehicle_type'] == 'bike'): ?>
                                 <img src="<?php echo base_url('assets/images/bike.png'); ?>" alt="Bike">
                             <?php endif; ?>
+                            
             </div>
             
         </div>
@@ -79,28 +90,48 @@
 
 <!-- Modal -->
 <div id="parkingModal" class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 hidden">
-    <div class="modal-container bg-white w-1/2 mx-auto rounded-lg mt-20 p-4">
-        <h3 class="text-2xl font-bold text-center mb-4">Parking Request</h3>
+    <div class="modal-container bg-white w-1/2 mx-auto rounded-lg mt-20 p-6 shadow-lg">
+        <h3 class="text-2xl font-bold text-center mb-4 text-gray-800">Parking Request</h3>
         <form id="parkingForm" action="<?php echo site_url('parking/send_request'); ?>" method="post">
             <input type="hidden" id="slot_id" name="slot_id">
             <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                <input type="text" id="name" name="name" class="form-input rounded-md w-full" value="<?php echo $this->session->userdata("username");?>" readonly>
+                <input type="text" id="name" name="name" class="form-input border border-gray-300 rounded-md w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" value="<?php echo $this->session->userdata('username'); ?>" readonly>
             </div>
             <div class="mb-4">
                 <label for="vehicle_type" class="block text-sm font-medium text-gray-700">Vehicle Type</label>
-                <select id="vehicle_type" name="vehicle_type" class="form-select rounded-md w-full">
+                <select id="vehicle_type" name="vehicle_type" class="form-select border border-gray-300 rounded-md w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="car">Car</option>
                     <option value="bike">Bike</option>
                 </select>
             </div>
             <div class="mb-4">
                 <label for="vehicle_number" class="block text-sm font-medium text-gray-700">Vehicle Number</label>
-                <input type="text" id="vehicle_number" name="vehicle_number" class="form-input rounded-md w-full">
+                <input type="text" id="vehicle_number" name="vehicle_number" class="form-input border border-gray-300 rounded-md w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
             <div class="text-center">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md">
+                <button type="submit" class="blue-bg text-white font-bold py-2 px-4 rounded-md transition duration-300 ease-in-out transform hover:scale-105">
                     Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Add Slot Modal -->
+<div id="addSlotModal" class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 hidden">
+    <div class="modal-container bg-white w-1/3 mx-auto rounded-lg mt-20 p-6 shadow-lg">
+        <h3 class="text-xl font-bold text-center mb-4 text-gray-800">Add Parking Slot</h3>
+        <form id="addSlotForm" action="<?php echo site_url('parking/add_slot'); ?>" method="post">
+            <div class="mb-4">
+                <label for="slot_name" class="block text-sm font-medium text-gray-700">Slot Name</label>
+                <input type="text" id="slot_name" name="slot_name" class="form-input border border-gray-300 rounded-md w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-900" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="blue-bg text-white font-bold py-2 px-4 rounded-md">
+                    Add Slot
+                </button>
+                <button type="button" id="closeAddSlotModal" class="ml-2 bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded-md">
+                    Cancel
                 </button>
             </div>
         </form>
@@ -140,6 +171,23 @@ document.getElementById('parkingModal').addEventListener('click', function(event
 });
 
 
+</script>
+<script>
+    function deleteSlot(slotId) {
+        if (confirm('Are you sure you want to free this parking slot?')) {
+            // Call the delete method in your controller
+            window.location.href = '<?php echo site_url("Parking/delete_slot/"); ?>' + slotId;
+        }
+    }
+</script>
+<script>
+    document.getElementById('addSlotButton').addEventListener('click', function() {
+        document.getElementById('addSlotModal').classList.remove('hidden');
+    });
+
+    document.getElementById('closeAddSlotModal').addEventListener('click', function() {
+        document.getElementById('addSlotModal').classList.add('hidden');
+    });
 </script>
 
 <style>

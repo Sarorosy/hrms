@@ -14,6 +14,22 @@ class Attendance_model extends CI_Model {
         $query = $this->db->get('tbl_attendance');
         return $query->result_array();
     }
+    public function get_attendance_by_user($user_id) {
+        $this->db->select('*');
+        $this->db->from('tbl_attendance');
+        $this->db->where('user_id', $user_id);
+        $query = $this->db->get();
+        return $query->result(); // Return an array of attendance records
+    }
+    public function get_work_details_by_user($user_id) {
+        // Query to fetch all work details where user_id matches
+        $this->db->select('*');
+        $this->db->from('tbl_work_details');
+        $this->db->where('user_id', $user_id);
+        $query = $this->db->get();
+        
+        return $query->result();
+    }
     public function get_holidays() {
         $this->db->select('holiday_date, title');
         $this->db->from('tbl_holidays');

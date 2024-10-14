@@ -47,6 +47,17 @@
         opacity: 1;
     }
 </style>
+<?php if ($this->session->flashdata('message')): ?>
+    <script>
+      $(document).ready(function() {
+        toastr.success("<?php echo $this->session->flashdata('message'); ?>", "Success", {
+          closeButton: true,
+          progressBar: true,
+          timeOut: 3000 // Duration in milliseconds
+        });
+      });
+    </script>
+  <?php endif; ?>
 
 <div class="container mx-auto mt-10 w-fit bg-white rounded-xl px-2">
     <h2 class="text-3xl font-bold mb-6">Leave Requests</h2>

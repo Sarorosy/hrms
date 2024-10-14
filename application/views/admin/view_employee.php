@@ -143,6 +143,24 @@
             </div>
           </div>
         </div>
+        <div class="rounded-lg border bg-white text-card-foreground shadow-sm p-6" data-v0-t="card">
+    <div class="flex flex-col space-y-1.5">
+        <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Employee Actions</h3>
+    </div>
+    <div class="p-6 grid gap-4">
+        <!-- View Attendance Button -->
+        <a href="<?= base_url('attendance/view_attendance/' . $employee['id']); ?>" 
+           class="inline-block px-6 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-all duration-300">
+            <i class="fas fa-calendar-check"></i> View Attendance
+        </a>
+        
+        <!-- View Work Details Button -->
+        <a href="<?= base_url('attendance/view_work_details/' . $employee['id']); ?>" 
+           class="inline-block px-6 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 transition-all duration-300">
+            <i class="fas fa-briefcase"></i> View Work Details
+        </a>
+    </div>
+</div>
         <div class="rounded-lg border bg-white text-card-foreground shadow-sm" data-v0-t="card">
         <div class="flex flex-col space-y-1.5 p-6">
           <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Employee Feedback</h3>
@@ -176,6 +194,8 @@
           <?php endif; ?>
         </div>
       </div>
+      
+
 
       </div>
       <div class="col-span-1 md:col-span-2">

@@ -1,18 +1,19 @@
 <div class="container mx-auto p-4">
-    <h2 class="text-2xl font-bold mb-4">Attendance</h2>
-    
-    <div class="my-2 flex justify-between items-center">
-        <div>
-            <?php if (empty($user_attendance) || ($user_attendance['logout_time'] != NULL)): ?>
-                <a href="<?php echo base_url('Attendance/mark_login'); ?>" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-block">Mark Attendance</a>
-            <?php else: ?>
-                <button id="signOffButton" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-block" type="button">
-                    Sign Off
-                </button>
-            <?php endif; ?>
-        </div>
-    </div>
+<h2 class="text-2xl font-bold mb-4 flex items-center">
+    <?php if ($user): ?>
+        <!-- Display User Name -->
+         
+        Attendance of 
+        <!-- Display the profile picture -->
+        <img src="<?= base_url('uploads/userdetailuploads/' . $user->profile_pic); ?>" 
+             alt="Profile Picture of <?= $user->name ?>" 
+             style="width:50px;height:50px;border-radius:50%;margin-left:10px"> <?= $user->name ?>
+    <?php else: ?>
+        User not found
+    <?php endif; ?>
+</h2>
 
+    
     <div class="flex justify-between">
         <div id="calendar" class="calendar-container mt-4 bg-white p-3 rounded"></div>
         <div class="p-4 mb-2 bg-white rounded-lg shadow-md border-t-4 border-blue-500 w-sm mr-2 max-h-40">
