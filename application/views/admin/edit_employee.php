@@ -238,7 +238,7 @@
                                 <i class="far fa-copy text-xl bluetext ml-5" onclick="copyToClipboard('#employeeId')"></i>
                             </div>
                         </div>
-                        
+                        <?php if($employee['role'] === "USER") { ?>
                         <div class="w-full md:w-1/2 px-3 mb-6">
                             <label class="block text-sm font-bold text-gray-700">Manager Name</label>
                             <select id="manager_name" name="manager_id" class="mt-1 block w-full p-3 border border-gray-300 rounded-md bg-white">
@@ -251,12 +251,15 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
+                        <?php } ?>
                         <div class="w-full md:w-1/2 px-3 mb-6">
                             <label for="role" class="block text-sm font-medium text-gray-700">Role:</label>
                             <select id="role" name="role" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
                                 <option value="USER" <?php echo (isset($employee['role']) && $employee['role'] == 'USER') ? 'selected' : ''; ?>>User</option>
                                 <option value="ADMIN" <?php echo (isset($employee['role']) && $employee['role'] == 'ADMIN') ? 'selected' : ''; ?>>Admin</option>
+                                <?php if($this->session->userdata("admin_type") == "SUPERADMIN") { ?>
                                 <option value="SUPERADMIN" <?php echo (isset($employee['role']) && $employee['role'] == 'SUPERADMIN') ? 'selected' : ''; ?>>Super Admin</option>
+                                <?php } ?>
                                 <option value="HR" <?php echo (isset($employee['role']) && $employee['role'] == 'HR') ? 'selected' : ''; ?>>HR</option>
                             </select>
                         </div>

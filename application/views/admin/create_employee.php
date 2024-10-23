@@ -38,7 +38,7 @@
 
             <div class="mb-4">
                 <label for="role" class="block text-sm font-medium text-gray-700">Role:</label>
-                <select id="role" name="role" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                <select id="role" name="role" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" onchange="toggleManagerDropdown()">
                     <option value="USER">User</option>
                     <option value="ADMIN">Admin</option>
                     <option value="SUPERADMIN">Super Admin</option>
@@ -47,14 +47,14 @@
             </div>
             <div class="mb-4">
                 <label for="position" class="block text-sm font-medium text-gray-700">Position:</label>
-                <select id="position" name="position" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                <select id="position" name="position" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" >
                     <option value="">Select Position</option>
                     <?php foreach ($positions as $position): ?>
                         <option value="<?php echo $position['id']; ?>"><?php echo $position['name']; ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="mb-4">
+            <div class="mb-4" id="managerDropdown" >
                 <label for="manager_id" class="block text-sm font-medium text-gray-700">Manager:</label>
                 <select id="manager_id" name="manager_id" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
                 <option value="">Select Manager</option>
@@ -102,5 +102,18 @@
             password += charset.charAt(Math.floor(Math.random() * n));
         }
         document.getElementById("password").value = password;
+    }
+</script>
+<script>
+    function toggleManagerDropdown() {
+        const roleSelect = document.getElementById('role');
+        const managerDropdown = document.getElementById('managerDropdown');
+
+        // Show manager dropdown only if the selected role is 'USER'
+        if (roleSelect.value === 'USER') {
+            managerDropdown.style.display = 'block';
+        } else {
+            managerDropdown.style.display = 'none';
+        }
     }
 </script>

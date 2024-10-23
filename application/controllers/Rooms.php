@@ -87,4 +87,28 @@ class Rooms extends CI_Controller {
 
         redirect(base_url('Rooms/book_room'));
     }
+    public function delete_room($room_id) {
+        // Fetch the room details based on the room ID
+        $room = $this->Rooms_model->get_room_by_id($room_id);
+        
+        if ($room) {
+            // Delete room image from the server if it exists
+            $room_img_path = './uploads/rooms/' . $room['room_img'];
+            if (file_exists($room_img_path) && !empty($room['room_img'])) {
+                unlink($room_img_path); // Delete the file
+            }
+
+            // Delete the room from the database
+            if ($this->Rooms_model->delete_room($room_id)) {
+                $this->session->set_flashdata('success', 'Room deleted successfully!');
+            } else {
+                $this->session->set_flashdata('error', 'Failed to delete room.');
+            }
+        } else {
+            $this->session->set_flashdata('error', 'Room not found.');
+        }
+
+        // Redirect to the room listing page
+        redirect(base_url('Rooms/book_room'));
+    }
 }

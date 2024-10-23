@@ -101,9 +101,9 @@
                             <div class="font-semibold text-gray-800"><?php echo $birthday['name']; ?></div>
                             <div class="text-gray-500"><?php echo date('F d, Y', strtotime($birthday['dob'])); ?></div>
                         </div>
-                        <button class="inline-flex items-center justify-center text-sm font-medium text-white blue-bg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md px-3 py-1 transition duration-200" onclick="sendwishes()">
+                        <!-- <button class="inline-flex items-center justify-center text-sm font-medium text-white blue-bg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md px-3 py-1 transition duration-200" onclick="sendwishes()">
                             Send Wishes
-                        </button>
+                        </button> -->
                     </div>
                 <?php endforeach; ?>
             </div>

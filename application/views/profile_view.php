@@ -1,53 +1,4 @@
-<style>
-    .modal {
-        display: none;
-        /* Hidden by default */
-        position: fixed;
-        /* Stay in place */
-        z-index: 1000;
-        /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%;
-        /* Full width */
-        height: 100%;
-        /* Full height */
-        overflow: auto;
-        /* Enable scrolling if needed */
-        background-color: rgba(0, 0, 0, 0.7);
-        /* Black with opacity */
-    }
 
-    /* Modal Content (image) */
-    .modal-content {
-        margin: auto;
-        display: block;
-        width: 80%;
-        max-width: 800px;
-        max-height: 80%;
-        margin-top: 25px;
-        object-fit: contain;
-        /* Ensure image scales properly */
-    }
-
-    /* Close Button */
-    .close {
-        position: absolute;
-        top: 15px;
-        right: 35px;
-        color: #fff;
-        font-size: 30px;
-        font-weight: bold;
-        transition: 0.3s;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: #bbb;
-        text-decoration: none;
-        cursor: pointer;
-    }
-</style>
 
 <div class="container mx-auto p-6 w-full  rounded-lg border-top-blue mt-4">
     <h2 class="text-3xl font-bold mb-6 text-center">Profile</h2>
@@ -57,15 +8,27 @@
     <div class="flex">
         <!-- Sidebar Navigation -->
         <div class="w-1/4 bg-white p-4 rounded-lg m-2">
-            <ul class="space-y-4">
-                <li class="p-2 bg-yellow-500 rounded text-center font-bold"><a href="#personal-details" class="tab-linkt" onclick="showTab(event, 'personal-details')">Personal Details</a></li>
-                <li class="p-2 bg-gray-300 rounded text-center font-bold"><a href="#contact-details" class="tab-link" onclick="showTab(event, 'contact-details')">Contact Details</a></li>
-                <li class="p-2 bg-gray-300 rounded text-center font-bold"><a href="#educational-qualifications" class="tab-link" onclick="showTab(event, 'educational-qualifications')">Educational Qualifications</a></li>
-                <li class="p-2 bg-gray-300 rounded text-center font-bold"><a href="#family-details" class="tab-link" onclick="showTab(event, 'family-details')">Family Details</a></li>
-                <li class="p-2 bg-gray-300 rounded text-center font-bold"><a href="#job-details" class="tab-link" onclick="showTab(event, 'job-details')">Job Details</a></li>
-                <li class="p-2 bg-gray-300 rounded text-center font-bold"><a href="#documents" class="tab-link" onclick="showTab(event, 'documents')">Documents</a></li>
-            </ul>
-        </div>
+    <ul class="space-y-4">
+        <li class="p-2 bg-yellow-500 rounded text-center font-bold">
+            <a href="#personal-details" class="tab-link" onclick="showTab(event, 'personal-details')">Personal Details</a>
+        </li>
+        <li class="p-2 bg-gray-300 rounded text-center font-bold">
+            <a href="#contact-details" class="tab-link" onclick="showTab(event, 'contact-details')">Contact Details</a>
+        </li>
+        <li class="p-2 bg-gray-300 rounded text-center font-bold">
+            <a href="#educational-qualifications" class="tab-link" onclick="showTab(event, 'educational-qualifications')">Educational Qualifications</a>
+        </li>
+        <li class="p-2 bg-gray-300 rounded text-center font-bold">
+            <a href="#family-details" class="tab-link" onclick="showTab(event, 'family-details')">Family Details</a>
+        </li>
+        <li class="p-2 bg-gray-300 rounded text-center font-bold">
+            <a href="#job-details" class="tab-link" onclick="showTab(event, 'job-details')">Job Details</a>
+        </li>
+        <li class="p-2 bg-gray-300 rounded text-center font-bold">
+            <a href="#documents" class="tab-link" onclick="showTab(event, 'documents')">Documents</a>
+        </li>
+    </ul>
+</div>
 
         <!-- Tab Content -->
         <div class="w-3/4 bg-white shadow-lg p-4 m-2 rounded-lg">
@@ -357,48 +320,54 @@
     
     <!-- Passport -->
     <div class="mb-4">
-        <label for="passport" class="block text-sm font-bold text-gray-700">Passport</label>
+        <label for="passport" class="block text-sm font-bold text-gray-700 flex">Passport <p class="text-red-700 text-xsm font-light ml-3">Only JPEG,JPG,PNG files are allowed</p></label>
         <input type="file" id="passport" name="passport_photo" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
         <?php if (isset($user['passport_photo'])): ?>
             <p class="text-sm text-green-600 mt-2">Uploaded: <a href="javascript:void(0);" onclick="openModal('<?php echo base_url('uploads/userdetailuploads/' . $user['passport_photo']); ?>')">View Passport</a></p>
         <?php endif; ?>
     </div>
-    
+    <hr/>
     <!-- Aadhar -->
     <div class="mb-4">
-        <label for="aadhar" class="block text-sm font-bold text-gray-700">Aadhar</label>
+        <label for="aadhar" class="block text-sm font-bold text-gray-700 flex">Aadhar <p class="text-red-700 text-xsm font-light ml-3">Only JPEG,JPG,PNG files are allowed</p></label>
+        
         <input type="file" id="aadhar" name="aadhar" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
         <?php if (isset($user['aadhar'])): ?>
             <p class="text-sm text-green-600 mt-2">Uploaded: <a href="javascript:void(0);" onclick="openModal('<?php echo base_url('uploads/userdetailuploads/' . $user['aadhar']); ?>')">View Aadhar</a></p>
         <?php endif; ?>
     </div>
+    <hr/>
     
     <!-- 10th Marksheet -->
     <div class="mb-4">
-        <label for="marksheet_10th" class="block text-sm font-bold text-gray-700">10th Marksheet</label>
+        <label for="marksheet_10th" class="block text-sm font-bold text-gray-700 flex">10th Marksheet <p class="text-red-700 text-xsm font-light ml-3">Only JPEG,JPG,PNG files are allowed</p></label>
+       
         <input type="file" id="marksheet_10th" name="10th_marksheet" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
         <?php if (isset($user['10th_marksheet'])): ?>
             <p class="text-sm text-green-600 mt-2">Uploaded: <a href="javascript:void(0);" onclick="openModal('<?php echo base_url('uploads/userdetailuploads/' . $user['10th_marksheet']); ?>')">View 10th Marksheet</a></p>
         <?php endif; ?>
     </div>
+    <hr/>
     
     <!-- Degree -->
     <div class="mb-4">
-        <label for="degree" class="block text-sm font-bold text-gray-700">Degree</label>
+        <label for="degree" class="block text-sm font-bold text-gray-700 flex">Degree <p class="text-red-700 text-xsm font-light ml-3">Only JPEG,JPG,PNG files are allowed</p></label>
         <input type="file" id="degree" name="degree_certificate" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
         <?php if (isset($user['degree_certificate'])): ?>
             <p class="text-sm text-green-600 mt-2">Uploaded: <a href="javascript:void(0);" onclick="openModal('<?php echo base_url('uploads/userdetailuploads/' . $user['degree_certificate']); ?>')">View Degree</a></p>
         <?php endif; ?>
     </div>
+    <hr/>
     
     <!-- Post Graduation -->
     <div class="mb-4">
-        <label for="pg" class="block text-sm font-bold text-gray-700">Post Graduation</label>
+        <label for="pg" class="block text-sm font-bold text-gray-700 flex">Post Graduation <p class="text-red-700 text-xsm font-light ml-3">Only JPEG,JPG,PNG files are allowed</p></label>
         <input type="file" id="pg" name="pg_certificate" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
         <?php if (isset($user['pg_certificate'])): ?>
             <p class="text-sm text-green-600 mt-2">Uploaded: <a href="javascript:void(0);" onclick="openModal('<?php echo base_url('uploads/userdetailuploads/' . $user['pg_certificate']); ?>')">View Post Graduation</a></p>
         <?php endif; ?>
     </div>
+    <hr/>
     
     <!-- CV -->
     <div class="mb-4">
@@ -420,6 +389,13 @@
 </div>
 <div class="bg-gray-100 rounded-lg p-6 mt-6 mx-auto max-w-3xl border-top-blue">
     <h2 class="text-2xl font-bold mb-4">Change Password</h2>
+    <div class="mb-4">
+        <p class="text-red-700 font-medium">Password Requirements:</p>
+        <ul class="list-disc list-inside text-gray-700 mb-4">
+            <li>Minimum 8 characters</li>
+            <li>Combination of numbers and alphabets recommended</li>
+        </ul>
+    </div>
 
     <?php echo form_open('profile/reset_password'); ?>
 
@@ -438,23 +414,101 @@
     </div>
 
     <?php echo form_close(); ?>
+    
 
 </div>
 
 <!-- Modal for image preview -->
 <div id="imageModal" class="modal">
-    <span class="close cursor-pointer" onclick="closeModal()">&times;</span>
-    <img class="modal-content" id="modalImage">
+    <div class="modal-content">
+        <span class="close cursor-pointer" onclick="closeModal()">&times;</span>
+        <img class="modal-image" id="modalImage" alt="Image Preview">
+        <div class="modal-footer">
+            <a id="downloadLink" href="#" class="btn-download" download>Download Image</a>
+        </div>
+    </div>
 </div>
 
+<style>
+    /* Modal styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1000; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: white; /* Black w/ opacity */
+    }
+
+    .modal-content {
+        background-color: #fff; /* White background */
+        padding: 20px; /* Some padding */
+        border: 1px solid #888; /* Grey border */
+        position: relative;
+        height: 90%;
+    }
+
+    .modal-image {
+        width: auto; /* Full width */
+        height: 100%; /* Maintain aspect ratio */
+        border-radius: 5px; /* Slightly round the corners */
+        margin: 0px auto;
+    }
+
+    .close {
+        color: #aaa; /* Gray color */
+        float: right; /* Float the close button to the right */
+        font-size: 40px; /* Large text */
+        font-weight: bold; /* Bold text */
+        position: absolute;
+        top: 10px; /* Position from the top */
+        right: 20px; /* Position from the right */
+        cursor: pointer; /* Pointer on hover */
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black; /* Change color on hover/focus */
+        text-decoration: none; /* No underline */
+        cursor: pointer; /* Pointer */
+    }
+
+    .modal-footer {
+        display: flex; /* Flexbox for alignment */
+        justify-content: center; /* Center the button */
+        margin-top: 20px; /* Spacing above the button */
+    }
+
+    .btn-download {
+        background-color: #007bff; /* Bootstrap primary color */
+        color: white; /* White text */
+        padding: 10px 20px; /* Padding */
+        border: none; /* No border */
+        border-radius: 5px; /* Round the corners */
+        text-decoration: none; /* No underline */
+        font-size: 16px; /* Font size */
+        cursor: pointer; /* Pointer on hover */
+        transition: background-color 0.3s; /* Smooth transition */
+    }
+
+    .btn-download:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+    }
+</style>
 
 <script>
     // Open modal with image
     function openModal(imageUrl) {
         var modal = document.getElementById('imageModal');
         var modalImg = document.getElementById("modalImage");
+        var downloadLink = document.getElementById('downloadLink');
+
         modal.style.display = "block";
         modalImg.src = imageUrl;
+        downloadLink.href = imageUrl; // Set download link to image URL
     }
 
     // Close modal
@@ -466,21 +520,33 @@
 <!-- JavaScript for Tab Switching -->
 <script>
     function showTab(event, tabId) {
-        event.preventDefault();
-        var tabLinks = document.getElementsByClassName('tab-link');
-        var tabContents = document.getElementsByClassName('tab-content');
-
-        for (var i = 0; i < tabLinks.length; i++) {
-            tabLinks[i].classList.remove('active');
-        }
-
-        for (var i = 0; i < tabContents.length; i++) {
-            tabContents[i].classList.add('hidden');
-        }
-
-        document.getElementById(tabId).classList.remove('hidden');
-        event.currentTarget.classList.add('active');
+    event.preventDefault();
+    
+    // Get all tab links and contents
+    var tabLinks = document.getElementsByClassName('tab-link');
+    var tabContents = document.getElementsByClassName('tab-content');
+    
+    // Reset all tab links (remove 'active' class and reset background color)
+    for (var i = 0; i < tabLinks.length; i++) {
+        tabLinks[i].classList.remove('active');
+        tabLinks[i].parentElement.classList.remove('bg-yellow-500'); // Remove active background
+        tabLinks[i].parentElement.classList.add('bg-gray-300'); // Set to inactive background
     }
+
+    // Hide all tab contents
+    for (var i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.add('hidden');
+    }
+
+    // Show the selected tab content
+    document.getElementById(tabId).classList.remove('hidden');
+    
+    // Set the clicked tab link to active and change its background
+    event.currentTarget.classList.add('active');
+    event.currentTarget.parentElement.classList.remove('bg-gray-300');
+    event.currentTarget.parentElement.classList.add('bg-yellow-500');
+}
+
 
     // Default tab
     // document.getElementsByClassName('tab-link')[2].click();

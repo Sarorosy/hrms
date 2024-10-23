@@ -78,7 +78,7 @@
             <?php elseif($this->session->flashdata('error_single_day')): ?>
                 <div class="mb-4 p-4 bg-red-100 text-red-700 rounded"><?php echo $this->session->flashdata('error_single_day'); ?></div>
             <?php endif; ?>
-            <?php echo form_open('ManageLeave/apply_leave'); ?>
+            <?php echo form_open(base_url('Manageleave/apply_leave')); ?>
                 <input type="hidden" name="leave_type_duration" value="single_day">
                 <div class="w-full flex items-center justify-between">
                 <div class="mb-4 w-3/5 mx-2">
@@ -120,7 +120,7 @@
             <?php elseif($this->session->flashdata('error_multi_day')): ?>
                 <div class="mb-4 p-4 bg-red-100 text-red-700 rounded"><?php echo $this->session->flashdata('error_multi_day'); ?></div>
             <?php endif; ?>
-            <?php echo form_open('ManageLeave/apply_leave'); ?>
+            <?php echo form_open(base_url('Manageleave/apply_leave')); ?>
                 <input type="hidden" name="leave_type_duration" value="multi_days">
                 <div class="mb-4">
                     <label for="leave_type" class="block text-gray-700 font-bold mb-2">Leave Type</label>

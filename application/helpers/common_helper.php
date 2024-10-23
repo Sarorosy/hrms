@@ -140,6 +140,7 @@ if (!function_exists('get_user_notifications')) {
 
         // Fetch notifications from the database
         $CI->db->where('user_id', $user_id);
+        $CI->db->order_by('created_at', 'DESC');
         $query = $CI->db->get('tbl_notifications');
 
         // Return the result as an array

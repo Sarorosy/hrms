@@ -250,7 +250,7 @@ $(document).ready(function() {
             }else if (!isSunday && date.isBefore(moment())) {
                 // If no entries, not a Sunday, and past date, mark as absent
                 cell.css('background-color', '#E6ACAC'); // Red for absence
-                cell.append('<div style="color: red; font-weight: bold; font-size: 15px;">Absent</div>');
+                cell.append('<div style="color: red;  font-size: 15px;">Absent</div>');
             }
         },
         dayClick: function(date) {

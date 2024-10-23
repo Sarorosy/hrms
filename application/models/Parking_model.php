@@ -16,11 +16,24 @@ class Parking_model extends CI_Model
         $this->db->select('slot_id, slot_name,occupied,user_id, vehicle_type');
         return $this->db->get('tbl_parking_slots')->result_array();
     }
-
+    public function check_pending_request($user_id, $slot_id)
+    {
+        $this->db->where('user_id', $user_id);
+        $this->db->where('slot_id', $slot_id);
+        $this->db->where('status', 'pending'); // Check for pending status
+        $query = $this->db->get('tbl_parking_requests');
+    
+        // Return true if a pending request exists, otherwise false
+        return $query->num_rows() > 0;
+    }
+    
     public function send_parking_request($data)
     {
         // Insert parking request into tbl_parking_requests
-        $this->db->insert('tbl_parking_requests', $data);
+        $inserted = $this->db->insert('tbl_parking_requests', $data);
+
+        // Return true if insert was successful, false otherwise
+        return $inserted;
     }
     public function get_pending_requests($user_id)
     {

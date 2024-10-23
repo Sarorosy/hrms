@@ -81,6 +81,7 @@ class Profile extends CI_Controller {
 
             // Set success message and redirect to profile view
             $this->session->set_flashdata('success', 'Profile updated successfully.');
+            $this->session->set_userdata('username',$this->input->post('name'));
             redirect('profile');
         }
     }
@@ -88,8 +89,8 @@ class Profile extends CI_Controller {
     private function handle_file_uploads($user_id) {
         // Configure file upload settings
         $config['upload_path'] = './uploads/userdetailuploads/';
-        $config['allowed_types'] = 'gif|jpg|jpeg|png|pdf'; // Adjust allowed file types as needed
-        $config['max_size'] = 2048; // Max size in KB
+        $config['allowed_types'] = '*'; // Adjust allowed file types as needed
+        $config['max_size'] = 4096; 
         $config['encrypt_name'] = TRUE; // Encrypt filename for security
 
         $this->load->library('upload', $config);
@@ -152,7 +153,7 @@ class Profile extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE) {
             // Validation failed
-            $this->session->set_flashdata('error', validation_errors());
+            $this->session->set_flashdata('error', "Validation Failed, MIN 8 CHARS");
             redirect('profile'); // Redirect to profile page or wherever appropriate
         } else {
             // Validation passed, update password
@@ -169,7 +170,7 @@ class Profile extends CI_Controller {
                 $this->session->set_flashdata('error', 'Failed to update password. Please try again.');
             }
 
-            redirect('profile'); // Redirect to profile page or wherever appropriate
+            redirect(base_url('profile')); // Redirect to profile page or wherever appropriate
         }
 }
 

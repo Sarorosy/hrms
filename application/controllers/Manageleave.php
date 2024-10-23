@@ -35,7 +35,7 @@ class Manageleave extends CI_Controller {
                 $this->session->set_flashdata('error', 'Failed to submit leave request.');
             }
 
-            redirect(base_url('ManageLeave/apply_leave'));
+            redirect(base_url('Manageleave/apply_leave'));
         }
     }
 
@@ -63,7 +63,7 @@ class Manageleave extends CI_Controller {
         $this->Manageleave_model->update_leave_status($leave_id, 'Approved');
 
         // Redirect or show success message
-        redirect(base_url('ManageLeave/view_leave_request'));
+        redirect(base_url('Manageleave/view_leave_request'));
     }
 
     // Reject Leave Request
@@ -83,6 +83,6 @@ class Manageleave extends CI_Controller {
         $this->Manageleave_model->reject_leave_request($leave_id, $reject_reason);
 
         // Redirect or show success message
-        redirect(base_url('ManageLeave/view_leave_request'));
+        redirect(base_url('Manageleave/view_leave_request'));
     }
 }

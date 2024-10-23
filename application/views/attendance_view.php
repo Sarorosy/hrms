@@ -239,7 +239,7 @@ $(document).ready(function() {
                 var logoutTime = entries[0].logout_time ? moment(entries[0].date + ' ' + entries[0].logout_time).format('hh:mm A') : '';
 
                 var content = '<div style="font-size: 12px;">';
-                content += '<div style="font-weight: bold;">' + date.format('D') + '</div>';
+                content += '<div style="">' + date.format('D') + '</div>';
                 content += '<div>' + loginTime + '</div>';
                 content += '<div>' + logoutTime + '</div>';
                 content += '</div>';
@@ -249,7 +249,7 @@ $(document).ready(function() {
             }else if (!isSunday && date.isBefore(moment())) {
                 // If no entries, not a Sunday, and past date, mark as absent
                 cell.css('background-color', '#E6ACAC'); // Red for absence
-                cell.append('<div style="color: red; font-weight: bold; font-size: 15px;">Absent</div>');
+                cell.append('<div style="color: red; font-size: 15px;">Absent</div>');
             }
         },
         dayClick: function(date) {

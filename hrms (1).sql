@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2024 at 11:38 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Oct 23, 2024 at 02:50 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -77,7 +77,7 @@ CREATE TABLE `tbl_admin` (
   `joining_date` date DEFAULT NULL,
   `work_location` varchar(255) DEFAULT NULL,
   `employment_type` enum('Full-time','Part-time','Contract','Intern') DEFAULT NULL,
-  `leave_balance` int(3) DEFAULT NULL,
+  `leave_balance` int(3) NOT NULL DEFAULT 12,
   `nationality` varchar(100) DEFAULT NULL,
   `blood_group` enum('O+','O-','A+','B+','B-','A-','AB+','AB-') DEFAULT NULL,
   `preferred_language` enum('Tamil','English','Hindi') DEFAULT NULL,
@@ -89,9 +89,10 @@ CREATE TABLE `tbl_admin` (
 --
 
 INSERT INTO `tbl_admin` (`id`, `employee_id`, `name`, `age`, `dob`, `gender`, `education`, `passport_photo`, `aadhar`, `10th_marksheet`, `degree_certificate`, `pg_certificate`, `cv`, `father_name`, `mother_name`, `spouse_name`, `son_count`, `daughter_count`, `personal_email`, `marital_status`, `address1`, `address2`, `address3`, `city`, `state`, `gratuity`, `spl_allowance`, `ita`, `hra`, `ctc`, `manager_id`, `manager_name`, `email`, `position`, `username`, `pass`, `decrypt_pass`, `status`, `role`, `department_id`, `created_at`, `updated_at`, `attendance`, `profile_pic`, `phone_number`, `secondary_phone_number`, `joining_date`, `work_location`, `employment_type`, `leave_balance`, `nationality`, `blood_group`, `preferred_language`, `zip_code`) VALUES
-(12534, 'EMP2039', 'Saravanan', 23, '2001-06-20', 'Male', NULL, 'efecca00827d609e00c6b9c64d0652b0.jpeg', NULL, NULL, NULL, NULL, NULL, 'Seenivasan', 'Uma', 'Rosy', 0, 0, 'codersaro@gmail.com', 'Single', '3,main road', 'thimmarajampettai', 'walajabad post', 'kanchipuram', 'Tamil Nadu', 0.00, 0.00, 0.00, 0.00, 50000.00, NULL, 'Vijay', 'admin@gmail.com', 'CEO', 'ADMIN', '$2y$10$gw.AnMDZeSPJqGh0UsOPeOeqCZfXxb3zxvI64mCpmdQfZSkoRpeA6', 'sarorosy1', 'active', 'SUPERADMIN', NULL, '2024-07-13 13:11:09', '2024-10-12 14:55:29', 0, '214c0786daa4dfc10c62a7f99a990172.jpg', '8838976048', NULL, '2024-06-21', 'Perumbakkam', 'Full-time', 63, 'Indian', 'B+', NULL, '631605'),
-(12539, NULL, 'Lathika', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, 0.00, 0.00, 0.00, 0.00, NULL, NULL, 'lathika@gmail.com', NULL, 'EMP81692', '$2y$10$vZimUgspL9XY6HUesOtEMufHbH7JVX/gMwOQbETm0urIEMUfjnNwm', 'lIgZVu2wsw', 'active', 'ADMIN', NULL, '2024-07-22 05:10:57', '2024-07-22 05:10:57', 0, 'default-avatar.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12542, 'EMP8232170', 'testman', 20, '2002-06-20', 'Male', '{\"qualification1\":\"bachelor of science\",\"college1\":\"harvard university\",\"year1\":\"2021\",\"qualification2\":\"\",\"college2\":\"\",\"year2\":\"\"}', 'bdeb3ca699d3112081ae5f59ca55ed3f.png', 'e7b9bb9e55abe418fa56e1835244ec94.png', NULL, '96d95212137f863eac84472756a070ab.png', 'f4b39da45ca2dd60471684caea2c0241.png', '8d5ad9f65027b5bf16f36929ebec44df.png', 'Father', 'Mother', 'Spouse', 0, 0, 'personalemail@gmail.com', 'Single', '3,main road', 'xyz', '', 'kanchipuram', 'Tamil Nadu', 0.00, 0.00, 0.00, 0.00, 28000.00, 12539, NULL, 'testman@gmail.com', '1', 'EMP8232170', '$2y$10$YcfVOMayfB5YNX8tvqFXquNva0BxE30VUfs0FRkxfRnCNQfZmmsR6', 'testman', 'active', 'USER', NULL, '2024-10-13 06:27:39', '2024-10-13 09:33:47', 0, 'default-avatar.png', '09361187937', NULL, '2024-10-15', NULL, 'Full-time', NULL, 'Indian', 'B+', NULL, '631605');
+(12534, 'EMP2039', 'Administrator', 23, '2001-06-20', 'Male', '{\"qualification1\":\"\",\"college1\":\"\",\"year1\":\"\",\"qualification2\":\"\",\"college2\":\"\",\"year2\":\"\"}', 'efecca00827d609e00c6b9c64d0652b0.jpeg', '2402f01d9a038ffd4f0d63a9ba66c3b4.jpeg', '5844dfbfc2a3002eab48b4a55082c19b.jpeg', 'fff068b56ea12bc205b0b556e01db01a.jpeg', NULL, '9fd1fd80127553bd8b5e5643387716ae.pdf', 'Seenivasan', 'Uma', 'Rosy', 0, 0, 'codersaro@gmail.com', 'Single', '3,main road', 'thimmarajampettai', 'walajabad post', 'kanchipuram', 'Tamil Nadu', '0.00', '0.00', '0.00', '0.00', '50000.00', NULL, 'Vijay', 'admin@gmail.com', 'CEO', 'ADMIN', '$2y$10$OuR9V3KJLYCo1GJtp7T0duFT/bGKM4oohA9K8XWDuCy/ikrUGl1Kq', 'admin@123', 'active', 'SUPERADMIN', NULL, '2024-07-13 13:11:09', '2024-10-23 09:54:57', 0, '5741067933efb061a924a1a285677df8.jpeg', '8838976048', 0, '2024-06-21', 'Perumbakkam', 'Full-time', 11, 'Indian', 'B+', NULL, '631605'),
+(12539, NULL, 'Lathika', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', '0.00', '0.00', '0.00', NULL, NULL, 'lathika@gmail.com', NULL, 'EMP81692', '$2y$10$vZimUgspL9XY6HUesOtEMufHbH7JVX/gMwOQbETm0urIEMUfjnNwm', 'lIgZVu2wsw', 'active', 'ADMIN', NULL, '2024-07-22 05:10:57', '2024-10-23 07:56:31', 0, 'default-avatar.png', NULL, NULL, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL),
+(12542, 'EMP8232170', 'testman', 20, '2002-10-20', 'Male', '{\"qualification1\":\"bachelor of science\",\"college1\":\"harvard university\",\"year1\":\"2021\",\"qualification2\":\"\",\"college2\":\"\",\"year2\":\"\"}', 'bdeb3ca699d3112081ae5f59ca55ed3f.png', 'e7b9bb9e55abe418fa56e1835244ec94.png', '5844dfbfc2a3002eab48b4a55082c19b.jpeg', '96d95212137f863eac84472756a070ab.png', 'f4b39da45ca2dd60471684caea2c0241.png', '3bee419d69fe709c1098c3942d2ce6fc.pdf', 'Father', 'Mother', 'Spouse', 0, 0, 'personalemail@gmail.com', 'Single', '3,main road', 'xyz', '', 'kanchipuram', 'Tamil Nadu', '0.00', '0.00', '0.00', '0.00', '28000.00', 12539, NULL, 'testman@gmail.com', '1', 'EMP8232170', '$2y$10$YcfVOMayfB5YNX8tvqFXquNva0BxE30VUfs0FRkxfRnCNQfZmmsR6', 'testman', 'active', 'USER', NULL, '2024-10-13 06:27:39', '2024-10-23 10:40:34', 0, 'default-avatar.png', '09361187937', 0, '2024-10-15', NULL, 'Full-time', 11, 'Indian', 'B+', NULL, '631605'),
+(12543, 'EMP6786989', 'hr', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0.00', '0.00', '0.00', '0.00', '31999.99', 0, NULL, 'hr@gmail.com', '', 'EMP6786989', '$2y$10$ogZZuLX5vAGO9Y4uspzJyObVxS75OHAaYigtaLGHX9576L1oopphK', 'hr@123', 'active', 'HR', NULL, '2024-10-14 04:19:51', '2024-10-14 04:19:51', 0, 'default-avatar.png', NULL, NULL, '2024-10-01', NULL, 'Full-time', 12, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -121,7 +122,10 @@ INSERT INTO `tbl_attendance` (`id`, `user_id`, `date`, `login_time`, `logout_tim
 (24, 12534, '2024-07-26', '09:12:36', '09:12:52'),
 (25, 12534, '2024-07-26', '09:13:02', '09:13:04'),
 (35, 12534, '2024-10-12', '21:10:24', '21:22:59'),
-(36, 12537, '2024-10-12', '23:00:01', '23:01:56');
+(36, 12537, '2024-10-12', '23:00:01', '23:01:56'),
+(37, 12534, '2024-10-14', '09:46:55', '09:47:55'),
+(38, 12542, '2024-10-14', '14:48:25', '17:41:11'),
+(39, 12534, '2024-10-23', '13:12:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -206,6 +210,13 @@ CREATE TABLE `tbl_feedback` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbl_feedback`
+--
+
+INSERT INTO `tbl_feedback` (`id`, `employee_id`, `manager_id`, `productivity_rating`, `quality_rating`, `punctuality_rating`, `comments`, `created_at`) VALUES
+(1, 12542, 12539, 3, 3, 3, 'need to improve more', '2024-10-23 07:28:54');
+
 -- --------------------------------------------------------
 
 --
@@ -228,7 +239,7 @@ INSERT INTO `tbl_holidays` (`id`, `holiday_date`, `title`, `created_at`, `update
 (1, '2024-07-17', 'Muharram', '2024-07-14 14:24:39', '2024-07-14 14:24:39'),
 (2, '2024-08-15', 'Independence Day ', '2024-07-14 14:25:27', '2024-07-14 14:25:27'),
 (3, '2024-09-07', 'Ganesh chadhurthi', '2024-07-18 07:25:51', '2024-07-18 07:25:51'),
-(4, '2024-10-14', 'Vijaya Dhasami', '2024-10-12 14:17:39', '2024-10-12 14:17:39');
+(4, '2024-10-11', 'Vijaya Dhasami', '2024-10-12 14:17:39', '2024-10-14 09:17:51');
 
 -- --------------------------------------------------------
 
@@ -254,15 +265,14 @@ CREATE TABLE `tbl_leave_request` (
 --
 
 INSERT INTO `tbl_leave_request` (`id`, `user_id`, `leave_reason`, `reject_reason`, `status`, `created_at`, `leave_type_duration`, `start_date`, `end_date`, `leave_type`) VALUES
-(1, 12534, 'trip to wayanad', 'not available', 'Rejected', '2024-07-17 04:13:59', 'single_day', '0000-00-00', NULL, ''),
-(2, 12534, 'yty', NULL, 'Pending', '2024-07-17 06:55:28', 'single_day', '0000-00-00', NULL, ''),
-(3, 12534, 'test', NULL, 'Pending', '2024-07-17 06:56:19', 'single_day', '0000-00-00', NULL, ''),
-(4, 12534, 'ggfggf', NULL, 'Pending', '2024-07-17 06:58:50', 'multi_days', '0000-00-00', NULL, ''),
 (5, 12534, 'dfdfdf', NULL, 'Pending', '2024-07-17 07:13:45', 'single_day', '2024-07-18', '2024-07-18', ''),
 (6, 12534, 'test', NULL, 'Approved', '2024-07-17 07:14:10', 'multi_days', '2024-07-18', '2024-07-18', ''),
 (7, 12534, 'test', 'We are having important meeting on that day', 'Rejected', '2024-07-17 07:14:48', 'multi_days', '2024-07-18', '2024-07-27', ''),
 (8, 12534, 'gdfg', NULL, 'Approved', '2024-07-17 07:17:07', 'single_day', '2024-07-26', '2024-07-26', 'vacation'),
-(9, 12534, 'family function', 'Sorry, we are having important on that day.', 'Rejected', '2024-07-18 04:35:02', 'single_day', '2024-07-19', '2024-07-19', 'personal');
+(9, 12534, 'family function', 'Sorry, we are having important on that day.', 'Rejected', '2024-07-18 04:35:02', 'single_day', '2024-07-19', '2024-07-19', 'personal'),
+(10, 12542, 'i was suffering from fever', NULL, 'Approved', '2024-10-14 11:59:38', 'single_day', '2024-10-14', '2024-10-14', 'sick'),
+(11, 12539, 'testing', NULL, 'Approved', '2024-10-23 07:56:14', 'single_day', '2024-10-22', '2024-10-22', 'vacation'),
+(12, 12542, 'fever', NULL, 'Pending', '2024-10-23 10:09:43', 'single_day', '2024-10-24', '2024-10-24', 'sick');
 
 -- --------------------------------------------------------
 
@@ -285,7 +295,7 @@ CREATE TABLE `tbl_messages` (
 
 INSERT INTO `tbl_messages` (`id`, `user_id`, `sender_id`, `message`, `created_at`, `read`) VALUES
 (7, 12537, 'Admin', 'Hello Richard, pls complete your profile details', '2024-10-12 13:05:00', 1),
-(8, 12542, 'Admin', 'dear testman, Pls fill your profile details', '2024-10-13 03:32:23', 0),
+(8, 12542, 'Admin', 'dear testman, Pls fill your profile details', '2024-10-13 03:32:23', 1),
 (12, 12534, 'Saravanan', 'hii', '2024-10-13 03:38:41', 1);
 
 -- --------------------------------------------------------
@@ -318,7 +328,7 @@ CREATE TABLE `tbl_notifications` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `message` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` varchar(255) NOT NULL DEFAULT current_timestamp(),
   `read` tinyint(1) DEFAULT 0,
   `title` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -328,7 +338,10 @@ CREATE TABLE `tbl_notifications` (
 --
 
 INSERT INTO `tbl_notifications` (`id`, `user_id`, `message`, `created_at`, `read`, `title`) VALUES
-(1, 12534, 'He has been warned and suspended for 5 days!', '2024-07-21 05:04:16', 0, 'Complaint status');
+(1, 12534, 'He has been warned and suspended for 5 days!', '2024-07-21 10:34:16', 0, 'Complaint status'),
+(9, 12542, 'Your leave request has been approved', '2024-10-14 14:36:47', 0, 'Leave Application Status'),
+(10, 12539, 'Your leave request has been approved', '2024-10-23 09:56:31', 0, 'Leave Application Status'),
+(14, 12542, 'You have been rewarded, check the rewards section.', '2024-10-23 13:58:07', 0, 'REWARDS');
 
 -- --------------------------------------------------------
 
@@ -372,7 +385,8 @@ INSERT INTO `tbl_parking_requests` (`id`, `user_id`, `vehicle_type`, `slot_id`, 
 (6, 12534, 'car', 6, 'tn02 b0904', 'approved', '2024-07-18 10:27:41', '2024-07-19 05:33:08'),
 (7, 12534, 'car', 7, 'tn02 b0904', 'approved', '2024-07-19 05:35:29', '2024-07-19 05:35:42'),
 (9, 12534, 'car', 8, 'tn02 b0904', 'approved', '2024-07-19 07:30:55', '2024-07-19 07:34:16'),
-(10, 12534, 'car', 8, 'tn02 b0903', 'approved', '2024-07-19 07:42:23', '2024-07-19 07:43:19');
+(10, 12534, 'car', 8, 'tn02 b0903', 'approved', '2024-07-19 07:42:23', '2024-07-19 07:43:19'),
+(14, 12542, 'car', 5, 'tn02 b0904', 'pending', '2024-10-23 10:08:17', '2024-10-23 10:08:17');
 
 -- --------------------------------------------------------
 
@@ -394,16 +408,17 @@ CREATE TABLE `tbl_parking_slots` (
 --
 
 INSERT INTO `tbl_parking_slots` (`slot_id`, `slot_name`, `occupied`, `created_at`, `user_id`, `vehicle_type`) VALUES
-(1, 'Slot 1', 0, '2024-07-18 09:20:34', NULL, ''),
+(1, 'left corner', 0, '2024-07-18 09:20:34', NULL, ''),
 (2, 'Slot 2', 0, '2024-07-18 09:20:34', NULL, ''),
-(3, 'Slot 3', 0, '2024-07-18 09:20:34', NULL, ''),
+(3, 'first middle', 0, '2024-07-18 09:20:34', NULL, ''),
 (4, 'Slot 4', 0, '2024-07-18 09:20:34', NULL, ''),
-(5, 'Slot 5', 1, '2024-07-18 09:20:34', 12534, 'bike'),
+(5, 'first right', 0, '2024-07-18 09:20:34', NULL, ''),
 (6, 'Slot 6', 1, '2024-07-18 09:20:34', 12534, 'car'),
 (7, 'Slot 7', 1, '2024-07-18 09:20:34', 12534, 'car'),
-(8, 'Slot 8', 1, '2024-07-18 09:20:34', 12534, 'car'),
+(8, 'Slot 8', 0, '2024-07-18 09:20:34', NULL, ''),
 (9, 'Slot 9', 0, '2024-07-18 09:20:34', NULL, ''),
-(10, 'Slot 10', 0, '2024-07-18 09:20:34', NULL, '');
+(10, 'Slot 10', 0, '2024-07-18 09:20:34', NULL, ''),
+(11, 'corner slot', 0, '2024-10-14 08:26:35', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -430,6 +445,28 @@ INSERT INTO `tbl_positions` (`id`, `name`, `description`, `status`, `created_at`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_rewards`
+--
+
+CREATE TABLE `tbl_rewards` (
+  `id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_rewards`
+--
+
+INSERT INTO `tbl_rewards` (`id`, `employee_id`, `subject`, `description`, `image`, `created_at`) VALUES
+(4, 12542, 'Best employee of the month', 'Congrats, You have been choose for best Employee of this month (October 2024) ', 'http://localhost/hrms/./uploads/rewardsimages/49b8c11b0bf638b86a2c338859120d7f.jpeg', '2024-10-23 13:58:07');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_rooms`
 --
 
@@ -445,8 +482,7 @@ CREATE TABLE `tbl_rooms` (
 --
 
 INSERT INTO `tbl_rooms` (`room_id`, `room_name`, `seat_count`, `room_img`) VALUES
-(1, 'Room 1', 15, '3f6362e8ff21f7eef549f8cd2940d592.jpg'),
-(2, 'Room 2', 25, 'b2bea834a4f4a587c2e0fde32c77b240.jpg');
+(1, 'Room 1', 15, '3f6362e8ff21f7eef549f8cd2940d592.jpg');
 
 -- --------------------------------------------------------
 
@@ -470,7 +506,7 @@ CREATE TABLE `tbl_room_bookings` (
 
 INSERT INTO `tbl_room_bookings` (`booking_id`, `title`, `description`, `room_id`, `booked_user_id`, `start_time`, `end_time`) VALUES
 (1, 'meeting', 'conference meeting', 1, 12534, '2024-07-21 11:30:00', '2024-07-21 12:00:00'),
-(3, 'Team Meeting', 'Team conference meeting ', 2, 12534, '2024-07-22 10:00:00', '2024-07-22 11:00:00');
+(4, 'test', 'trdt', 1, 12539, '2024-10-16 12:00:00', '2024-10-16 12:00:00');
 
 -- --------------------------------------------------------
 
@@ -492,7 +528,9 @@ CREATE TABLE `tbl_work_details` (
 
 INSERT INTO `tbl_work_details` (`id`, `user_id`, `date`, `work_details`, `created_at`) VALUES
 (7, 12534, '2024-10-12', 'testing  ds ds ds ds d ds   sd sds d d d sd', '2024-10-12 15:52:59'),
-(8, 12537, '2024-10-12', 'worked on attendance features, holidays, messages, daily work details modules', '2024-10-12 17:31:55');
+(8, 12537, '2024-10-12', 'worked on attendance features, holidays, messages, daily work details modules', '2024-10-12 17:31:55'),
+(9, 12534, '2024-10-14', 'worked on different modules like datatables, positions, employee view and edit pages', '2024-10-14 04:17:55'),
+(10, 12542, '2024-10-14', 'filled profile details, uploaded documents , requested sick leave for today ', '2024-10-14 12:11:11');
 
 --
 -- Indexes for dumped tables
@@ -596,6 +634,12 @@ ALTER TABLE `tbl_positions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_rewards`
+--
+ALTER TABLE `tbl_rewards`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_rooms`
 --
 ALTER TABLE `tbl_rooms`
@@ -622,13 +666,13 @@ ALTER TABLE `tbl_work_details`
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12543;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12544;
 
 --
 -- AUTO_INCREMENT for table `tbl_attendance`
 --
 ALTER TABLE `tbl_attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `tbl_complaints`
@@ -652,7 +696,7 @@ ALTER TABLE `tbl_events`
 -- AUTO_INCREMENT for table `tbl_feedback`
 --
 ALTER TABLE `tbl_feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_holidays`
@@ -664,7 +708,7 @@ ALTER TABLE `tbl_holidays`
 -- AUTO_INCREMENT for table `tbl_leave_request`
 --
 ALTER TABLE `tbl_leave_request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_messages`
@@ -682,7 +726,7 @@ ALTER TABLE `tbl_notice`
 -- AUTO_INCREMENT for table `tbl_notifications`
 --
 ALTER TABLE `tbl_notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_parking`
@@ -694,19 +738,25 @@ ALTER TABLE `tbl_parking`
 -- AUTO_INCREMENT for table `tbl_parking_requests`
 --
 ALTER TABLE `tbl_parking_requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_parking_slots`
 --
 ALTER TABLE `tbl_parking_slots`
-  MODIFY `slot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `slot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbl_positions`
 --
 ALTER TABLE `tbl_positions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbl_rewards`
+--
+ALTER TABLE `tbl_rewards`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_rooms`
@@ -718,13 +768,13 @@ ALTER TABLE `tbl_rooms`
 -- AUTO_INCREMENT for table `tbl_room_bookings`
 --
 ALTER TABLE `tbl_room_bookings`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_work_details`
 --
 ALTER TABLE `tbl_work_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

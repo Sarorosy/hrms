@@ -124,3 +124,7 @@ svg{
 .blue-hover:hover{
     color: #000034 !important;
 }
+
+.fc-month-button ,.fc-agendaWeek-button  , .fc-agendaDay-button {
+    display: none;
+}

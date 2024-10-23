@@ -34,4 +34,21 @@ class Rooms_model extends CI_Model {
     public function insert_booking($data) {
         return $this->db->insert('tbl_room_bookings', $data);
     }
+    public function get_room_by_id($room_id) {
+        $this->db->where('room_id', $room_id);
+        $query = $this->db->get('tbl_rooms');
+        return $query->row_array();
+    }
+
+    // Delete room by ID
+    public function delete_room($room_id) {
+        // Delete all bookings for this room
+        $this->db->where('room_id', $room_id);
+        $this->db->delete('tbl_room_bookings');
+        
+        // Now delete the room
+        $this->db->where('room_id', $room_id);
+        return $this->db->delete('tbl_rooms');
+    }
+    
 }

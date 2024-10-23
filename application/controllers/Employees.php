@@ -25,11 +25,19 @@ class Employees extends CI_Controller {
     {
         // Fetch employee details from database
         $data['employee'] = $this->Employees_model->get_employee_details($employee_id);
-        $data['feedback'] = $this->Feedback_model->get_feedback_by_id($employee_id);
+        $all_feedback = $this->Feedback_model->get_feedback_by_id($employee_id);
+        $data['feedback'] = !empty($all_feedback) ? $all_feedback[0] : null; 
         // Load view with template
         $data['main_content'] = 'admin/view_employee'; // Assuming view file is view_employee.php
         $this->load->view('template', $data);
     }
+    public function view_all_feedback($employee_id)
+{
+    $data['employee'] = $this->Employees_model->get_employee_details($employee_id);
+    $data['feedback'] = $this->Feedback_model->get_feedback_by_id($employee_id); // Get all feedback
+    $data['main_content'] = 'admin/all_feedback'; // Assuming the view file is all_feedback.php
+    $this->load->view('template', $data);
+}
     public function send_message() {
         $user_id = $this->input->post('user_id'); // Get user ID
         $message = $this->input->post('message'); // Get message content
@@ -291,6 +299,117 @@ public function give_feedback()
         redirect(base_url('Employees/view_team'));
     }
 }
+public function give_rewards($employee_id)
+{
+    // Check if the form is submitted via POST
+    if ($this->input->method() === 'post') {
+        $subject = $this->input->post('subject');
+        $description = $this->input->post('description');
+        
+        // Debug: Print input values
+        print_r("Form submitted successfully.<br>");
+        print_r("Subject: " . $subject . "<br>");
+        print_r("Description: " . $description . "<br>");
+
+        // Handle image upload
+        $image_path = $this->handle_file_uploads('image', './uploads/rewardsimages/', 'jpg|png|jpeg|webp|jfif', 4096);
+
+        if ($image_path) {
+            print_r("Image uploaded successfully: " . $image_path . "<br>");
+        } else {
+            print_r("Image upload failed.<br>");
+        }
+        
+        // Insert reward into the tbl_rewards
+        $reward_data = array(
+            'employee_id' => $employee_id,
+            'subject' => $subject,
+            'description' => $description,
+            'image' => $image_path,
+            'created_at' => date('Y-m-d H:i:s')
+        );
+        
+        if ($this->db->insert('tbl_rewards', $reward_data)) {
+            print_r("Reward inserted successfully.<br>");
+        } else {
+            print_r("Failed to insert reward: " . $this->db->last_query() . "<br>");
+        }
+        
+        // Prepare notification data
+        $notification_data = array(
+            'user_id' => $employee_id,
+            'message' => "You have been rewarded, check the rewards section.",
+            'read' => 0,
+            'created_at' => date('Y-m-d H:i:s'),
+            'title' => "REWARDS"
+        );
+        
+        if ($this->db->insert('tbl_notifications', $notification_data)) {
+            print_r("Notification inserted successfully.<br>");
+        } else {
+            print_r("Failed to insert notification: " . $this->db->last_query() . "<br>");
+        }
+        
+        // Redirect with a success message
+        $this->session->set_flashdata('message', 'Reward has been successfully sent.');
+        redirect(base_url('Employees/view_employee/' . $employee_id));
+    }
+
+    // Load the form for giving rewards
+    $data['employee_id'] = $employee_id;
+    $data['employee'] = $this->Employees_model->get_employee_details($employee_id);
+    $data['main_content'] = 'admin/give_rewards';
+    $this->load->view('template', $data);
+}
+
+private function handle_file_uploads($file_input_name, $upload_path, $allowed_types, $max_size)
+{
+    // Configure file upload settings
+    $config['upload_path'] = $upload_path;
+    $config['allowed_types'] = $allowed_types;
+    $config['max_size'] = $max_size; 
+    $config['encrypt_name'] = TRUE; // Encrypt filename for security
+
+    $this->load->library('upload', $config);
+
+    // Check if a file is uploaded
+    if (!empty($_FILES[$file_input_name]['name'])) {
+        if ($this->upload->do_upload($file_input_name)) {
+            $upload_data = $this->upload->data();
+            $filename = $upload_data['file_name'];
+            return base_url($upload_path . $filename); // Return the file URL
+        } else {
+            // Handle upload failure and log error
+            $upload_error = $this->upload->display_errors();
+            log_message('error', ucfirst($file_input_name) . ' Upload Error: ' . $upload_error);
+            $this->session->set_flashdata('error', 'Failed to upload ' . $file_input_name . ': ' . $upload_error);
+            return null;
+        }
+    } else {
+        // No file uploaded
+        return null;
+    }
+}
+public function rewards()
+{
+    // Get the current user's ID from the session
+    $user_id = $this->session->userdata('user_id');
+
+    // Fetch the rewards for the user directly in the controller
+    $this->db->where('employee_id', $user_id);
+    $this->db->limit(8); // Limit to the last 8 rewards
+    $query = $this->db->get('tbl_rewards');
+
+    // Check if rewards are found and store in the data array
+    $data['rewards'] = $query->result_array();
+
+    // Load the view for displaying rewards
+    $data['main_content'] = 'rewards'; // Adjust the view path as needed
+    $this->load->view('template', $data);
+}
+
+
+
 
 
 }

@@ -124,6 +124,12 @@
               </button>
             </div>
             <div class="flex items-center justify-between">
+              <div class="text-sm font-medium">Aadhar</div>
+              <button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3" onclick="openModal('aadhar', '<?= base_url('uploads/userdetailuploads/' . $employee['aadhar']) ?>')">
+                View
+              </button>
+            </div>
+            <div class="flex items-center justify-between">
               <div class="text-sm font-medium">10th Marksheet</div>
               <button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3" onclick="openModal('marksheet', '<?= base_url('uploads/userdetailuploads/' . $employee['10th_marksheet']) ?>')">
                 View
@@ -161,39 +167,61 @@
         </a>
     </div>
 </div>
-        <div class="rounded-lg border bg-white text-card-foreground shadow-sm" data-v0-t="card">
-        <div class="flex flex-col space-y-1.5 p-6">
-          <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Employee Feedback</h3>
+<?php if($this->session->userdata('admin_type') == "SUPERADMIN") { ?>
+<div class="rounded-lg border bg-white text-card-foreground shadow-sm" data-v0-t="card"> 
+    <div class="flex flex-col space-y-1.5 p-6">
+        <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Employee Feedback</h3>
+    </div>
+    <div class="p-6 grid gap-4">
+        <?php if(isset($feedback)): ?>
+            <div class="grid gap-2 border-b border-muted-foreground pb-4">
+                <div class="flex items-center">
+                    <span class="text-lg font-bold text-muted-foreground">Punctuality:</span>
+                    <div class="ml-2">
+                        <?php echo generateStarRating($feedback['punctuality_rating']); ?>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <span class="text-lg font-bold text-muted-foreground">Productivity:</span>
+                    <div class="ml-2">
+                        <?php echo generateStarRating($feedback['productivity_rating']); ?>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <span class="text-lg font-bold text-muted-foreground">Quality:</span>
+                    <div class="ml-2">
+                        <?php echo generateStarRating($feedback['quality_rating']); ?>
+                    </div>
+                </div>
+                <div class="text-lg font-bold text-muted-foreground"> Comments: <span class="font-light"><?php echo $feedback['comments']; ?></span></div>
+                <div class="text-lg font-bold text-muted-foreground"> Date: <span class="font-light"><?php echo strdate($feedback['created_at']) ?></span></div>
+            </div>
+            <div class="p-6">
+        <a href="<?php echo base_url('Employees/view_all_feedback/' . $employee['id']); ?>" class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+            View All Feedback
+        </a>
+    </div>
+        <?php else: ?>
+            <p>No feedback available for this employee.</p>
+        <?php endif; ?>
+    </div>
+    
+</div>
+<div class="rounded-lg border bg-white text-card-foreground shadow-sm" data-v0-t="card"> 
+    <div class="flex flex-col p-6">
+        <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Rewards</h3>
+        <p>Wanna give rewards?</p>
+    </div>
+    
+
+<div class="pl-6 pb-6 mx-auto">
+    <a href="<?php echo base_url('Employees/give_rewards/' . $employee['id']); ?>" class="inline-flex items-center px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+        Give Reward <i class="fas fa-gift"></i>
+    </a>
+</div>
         </div>
-        <div class="p-6 grid gap-4">
-          <?php if(isset($feedback) && is_array($feedback)): ?>
-          <?php foreach($feedback as $item): ?>
-          <div class="grid gap-2 border-b border-muted-foreground pb-4">
-            <div class="flex items-center">
-              <span class="text-lg font-bold text-muted-foreground">Punctuality:</span>
-              <div class="ml-2">
-                <?php echo generateStarRating($item['punctuality_rating']); ?>
-              </div>
-            </div>
-            <div class="flex items-center">
-              <span class="text-lg font-bold text-muted-foreground">Productivity:</span>
-              <div class="ml-2">
-                <?php echo generateStarRating($item['productivity_rating']); ?>
-              </div>
-            </div>
-            <div class="flex items-center">
-              <span class="text-lg font-bold text-muted-foreground">Quality:</span>
-              <div class="ml-2">
-                <?php echo generateStarRating($item['quality_rating']); ?>
-              </div>
-            </div>
-            <div class="text-lg font-bold text-muted-foreground"> Comments: <span class="font-light"><?php echo $item['comments']; ?></span></div>
-            <div class="text-lg font-bold text-muted-foreground"> Date: <span class="font-light"><?php echo strdate($item['created_at']) ?></span></div>
-          </div>
-          <?php endforeach; ?>
-          <?php endif; ?>
-        </div>
-      </div>
+<?php } ?>
+
       
 
 
@@ -204,7 +232,7 @@
             <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Employment Details</h3>
           </div>
           <div class="p-6 grid gap-4">
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-3 gap-4 mb-3 border border-gray-300 rounded p-2">
               <div class="grid gap-2">
                 <div class="text-sm font-medium">Employee ID</div>
                 <div class="text-sm text-muted-foreground"><?php echo $employee['employee_id'] ?></div>
@@ -213,7 +241,10 @@
                 <div class="text-sm font-medium">Email ID</div>
                 <div class="text-sm text-muted-foreground"><?php echo $employee['email'] ?></div>
               </div>
-
+              <div class="grid gap-2">
+                <div class="text-sm font-medium">Password</div>
+                <div class="text-sm text-muted-foreground"><?php echo $employee['decrypt_pass'] ?></div>
+              </div>
             </div>
             <div class="grid grid-cols-2 gap-4">
               <div class="grid gap-2">
@@ -417,19 +448,22 @@
 
   <script>
     // Function to open the modal and display content
-    function openModal(documentType, documentUrl) {
-      const modal = document.getElementById('documentModal');
-      const modalContent = document.querySelector('#documentModal > div');
+function openModal(documentType, documentUrl) {
+  const modal = document.getElementById('documentModal');
+  const modalContent = document.querySelector('#documentModal > div');
 
-      // Set the content of the modal
-      modalContent.innerHTML = `
+  // Set the content of the modal
+  modalContent.innerHTML = `
     <span id="closeModal" style="cursor: pointer;" class="blue-border rounded-lg p-2">close</span>
     <img src="${documentUrl}" alt="${documentType}" class="w-full h-auto max-h-96 object-contain" />
+    <a href="${documentUrl}" download class="mt-4 inline-block bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition duration-200">
+      Download
+    </a>
   `;
 
-      modal.style.display = 'flex'; // Show the modal container
-      modalContent.style.display = 'block'; // Show the modal content
-    }
+  modal.style.display = 'flex'; // Show the modal container
+  modalContent.style.display = 'block'; // Show the modal content
+}
 
     // Function to close the modal
     function closeModal() {

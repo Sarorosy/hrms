@@ -24,33 +24,43 @@ class Parking extends CI_Controller {
     }
 
     public function send_request() {
-        // Handle form submission to send parking request
-        $user_id = $this->session->userdata("user_id"); 
-        $parking_type = $this->input->post('vehicle_type');
-        $slot_id = $this->input->post('slot_id');
-        $vehicle_number = $this->input->post('vehicle_number');
-        $vehicle_type = $this->input->post('vehicle_type');
-    
-        $request_data = array(
-            'user_id' => $user_id,
-            'slot_id' => $slot_id,
-            'vehicle_number' => $vehicle_number,
-            'vehicle_type' => $vehicle_type,
-            'status' => 'pending', // Default status for new requests
-        );
-    
-        // Send parking request to model
-        $result = $this->Parking_model->send_parking_request($request_data);
-    
-        // Check result and show toastr notification
-        if ($result) {
-            $this->session->set_flashdata('success', 'Parking request sent successfully!');
-        } else {
-            $this->session->set_flashdata('error', 'Failed to send parking request. Please try again.');
-        }
-    
-        redirect(base_url('Parking')); // Redirect to index method of Parking controller
-    }
+		// Handle form submission to send parking request
+		$user_id = $this->session->userdata("user_id"); 
+		$slot_id = $this->input->post('slot_id');
+		$vehicle_number = $this->input->post('vehicle_number');
+		$vehicle_type = $this->input->post('vehicle_type');
+	
+		// Check if there is an existing pending request
+		$existing_request = $this->Parking_model->check_pending_request($user_id, $slot_id);
+	
+		if ($existing_request) {
+			// If a pending request exists, set flashdata error
+			$this->session->set_flashdata('error', 'Your previous request is in progress.');
+		} else {
+			// Prepare the new request data
+			$request_data = array(
+				'user_id' => $user_id,
+				'slot_id' => $slot_id,
+				'vehicle_number' => $vehicle_number,
+				'vehicle_type' => $vehicle_type,
+				'status' => 'pending', // Default status for new requests
+			);
+	
+			// Send parking request to model
+			$result = $this->Parking_model->send_parking_request($request_data);
+			
+			// Check result and show toastr notification
+			if ($result) {
+				$this->session->set_flashdata('success', 'Parking request sent successfully!');
+			} else {
+				$this->session->set_flashdata('error', 'Failed to send parking request. Please try again.');
+			}
+		}
+	
+		// Redirect to index method of Parking controller (uncomment to enable redirection)
+		 redirect(base_url('Parking'));
+	}
+	
 	public function delete_slot($slot_id) {
 		// Make sure the user is an admin or superadmin
 		if ($this->session->userdata('admin_type') == 'ADMIN' || $this->session->userdata('admin_type') == 'SUPERADMIN') {
