@@ -65,17 +65,18 @@
     <?php if (!empty($leaves)): ?>
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border border-gray-200 rounded-lg" id="leaverequests">
-                <thead>
-                    <tr class="bg-gray-100 border-b border-gray-200">
-                        <th class="p-4 text-left text-gray-700 font-bold">ID</th>
-                        <th class="p-4 text-left text-gray-700 font-bold">Name</th>
-                        <th class="p-4 text-left text-gray-700 font-bold">Leave Type</th>
-                        <th class="p-4 text-left text-gray-700 font-bold">Leave Reason</th>
-                        <th class="p-4 text-left text-gray-700 font-bold"><i class="fas fa-quote-left blue-text"></i>From</th>
-                        <th class="p-4 text-left text-gray-700 font-bold">To<i class="fas fa-quote-right blue-text"></i></th>
-                        <th class="p-4 text-left text-gray-700 font-bold">Status</th>
-                        <th class="p-4 text-left text-gray-700 font-bold">Requested At</th>
-                        <th class="p-4 text-left text-gray-700 font-bold">Actions</th>
+                <thead class="blue-bg text-white">
+                    <tr class=" border-b border-gray-200">
+                        <th class="p-4 text-left font-bold">ID</th>
+                        <th class="p-4 text-left font-bold">Name</th>
+                        <th class="p-4 text-left font-bold">Leave Type</th>
+                        <th class="p-4 text-left font-bold">Pay Type</th>
+                        <th class="p-4 text-left font-bold">Leave Reason</th>
+                        <th class="p-4 text-left font-bold"><i class="fas fa-quote-left blue-text"></i>From</th>
+                        <th class="p-4 text-left font-bold">To<i class="fas fa-quote-right blue-text"></i></th>
+                        <th class="p-4 text-left font-bold">Status</th>
+                        <th class="p-4 text-left font-bold">Requested At</th>
+                        <th class="p-4 text-left font-bold">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -85,6 +86,7 @@
                             <td class="p-4 text-gray-600"><?php echo getAdminNameById($leave['user_id'])?></td>
 
                             <td class="p-4 text-gray-600"><?php echo $leave['leave_type']; ?></td>
+                            <td class="p-4 text-gray-600"><?php echo $leave['leave_pay_type']; ?></td>
                             <td class="p-4 text-gray-600"><?php echo $leave['leave_reason']; ?></td>
                             <td class="p-4 text-gray-600"><?php echo strdate($leave['start_date']); ?></td>
                             <td class="p-4 text-gray-600"><?php echo (!empty($leave['end_date'])) ? strdate( $leave['end_date']) : NULL ?></td>

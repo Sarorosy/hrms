@@ -1,8 +1,12 @@
-<IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /hrms/
-RewriteRule ^index\.php$ - [L]
+RewriteBase /employee
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /hrms/ [L]
+RewriteRule ^(.*)$ /employee/index.php/$1 [L]
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “alt-php83” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-alt-php83 .php .php8 .phtml
 </IfModule>
+# php -- END cPanel-generated handler, do not edit

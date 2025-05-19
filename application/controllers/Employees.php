@@ -23,8 +23,14 @@ class Employees extends CI_Controller {
     }
     public function view_employee($employee_id)
     {
+        $employee_id = base64_decode($employee_id);
+        $employee = $this->Employees_model->get_employee_details($employee_id);
+        if(!$employee){
+            $this->session->set_flashdata('error', 'no employee found!');
+            redirect($this->agent->referrer()); 
+        }
         // Fetch employee details from database
-        $data['employee'] = $this->Employees_model->get_employee_details($employee_id);
+        $data['employee'] = $employee;
         $all_feedback = $this->Feedback_model->get_feedback_by_id($employee_id);
         $data['feedback'] = !empty($all_feedback) ? $all_feedback[0] : null; 
         // Load view with template
@@ -60,11 +66,13 @@ class Employees extends CI_Controller {
 
     public function edit_employee($employee_id)
     {
+        $employee_id = base64_decode($employee_id);
+        
         $data['admins'] = $this->Employees_model->get_admins();
         // Fetch employee details from database
         $data['employee'] = $this->Employees_model->get_employee_details($employee_id);
         $data['positions'] = $this->Positions_model->get_all_positions();
-
+        $data['departments'] = $this->Employees_model->get_departments();
         // Load view with template
         $data['main_content'] = 'admin/edit_employee'; // Assuming view file is edit_employee.php
         $this->load->view('template', $data);
@@ -111,12 +119,22 @@ class Employees extends CI_Controller {
                 'spouse_name' => $this->input->post('spouse_name'),
                 'son_count' => $this->input->post('son_count'),
                 'daughter_count' => $this->input->post('daughter_count'),
+                'aadharno' => $this->input->post('aadharno'),
+                'pancard' => $this->input->post('pancard'),
+                'bankname' => $this->input->post('bankname'),
+                'branch' => $this->input->post('branch'),
+                'account_no' => $this->input->post('account_no'),
+                'ifsc_code' => $this->input->post('ifsc_code'),
+                'uanno' => $this->input->post('uanno'),
+                'esic' => $this->input->post('esic'),
                 'position' => $this->input->post('position'),
+                'department_id' => $this->input->post('department'),
                 'ctc' => $this->input->post('ctc'),
                 'joining_date' => $this->input->post('joining_date'),
                 'employment_type' => $this->input->post('employment_type'),
                 'manager_id' => $this->input->post('manager_id'),
                 'phone_number' => $this->input->post('phone_number'),
+                'blood_group' => $this->input->post('blood_group'),
             );
 
             // Handle file uploads
@@ -170,7 +188,7 @@ class Employees extends CI_Controller {
             }
 
             // Redirect back to view employee details
-            redirect(base_url('Employees/view_employee/' . $employee_id));
+            redirect(base_url('Employees/view_employee/' . base64_encode($employee_id)));
         }
     }
 
@@ -179,6 +197,7 @@ class Employees extends CI_Controller {
     {
         $data['admins'] = $this->Employees_model->get_admins();
         $data['positions'] = $this->Employees_model->get_positions();
+        $data['departments'] = $this->Employees_model->get_departments();
         // Load view with template
         $data['main_content'] = 'admin/create_employee'; // Assuming view file is create_employee.php
         $this->load->view('template', $data);
@@ -211,6 +230,7 @@ class Employees extends CI_Controller {
                 'decrypt_pass' =>$this->input->post('password'),
                 'role' => $this->input->post('role'),
                 'position' => $this->input->post('position'),
+                'department_id' => $this->input->post('department'),
                 'manager_id' => $this->input->post('manager_id'),
                 'ctc' => $this->input->post('ctc'),
                 'joining_date' => $this->input->post('joining_date'),
@@ -223,6 +243,7 @@ class Employees extends CI_Controller {
             if ($result) {
                 // Employee created successfully
                 $this->session->set_flashdata('success', 'Employee created successfully.');
+                $this->send_welcome_email($data['name'], $data['email'], $data['username'], $this->input->post('password'));
             } else {
                 // Failed to create employee
                 $this->session->set_flashdata('error', 'Failed to create employee. Please try again.');
@@ -232,6 +253,113 @@ class Employees extends CI_Controller {
             redirect(base_url('Employees/create_employee_form'));
         }
     }
+    private function send_welcome_email($name,$email, $username, $password)
+{
+    $url = base_url('login');  // The login page URL
+
+    // Prepare the email subject and body
+    $subject = "Your account has been successfully created";
+
+    $body = "
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: #333;
+                line-height: 1.6;
+            }
+            .email-container {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                background-color: #f9f9f9;
+            }
+            h1 {
+                color: #000034;
+                text-align: center;
+            }
+            p {
+                font-size: 16px;
+            }
+            .credentials-list {
+                margin-top: 10px;
+                padding-left: 20px;
+            }
+            .credentials-list li {
+                font-size: 14px;
+            }
+            .footer {
+                text-align: center;
+                font-size: 14px;
+                margin-top: 20px;
+            }
+            img {
+                width: 50px;
+                height: auto;
+            }
+            .cta {
+                display: inline-block;
+                margin-top: 20px;
+                padding: 10px 20px;
+                background-color: #000034;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                text-align: center;
+            }
+            .cta:hover {
+                background-color: #45a049;
+            }
+        </style>
+    </head>
+    <body>
+        <div class='email-container'>
+            <h1 style='display:flex;align-items-center;'> <img src='https://ryupunch.com/vda/assets/images/vda-logo.png' alt='Employee Logo' style='margin-right:7px;'> EMPLOYEE</h1>
+            <p>Dear $username,</p>
+            <p>Your account has been successfully created. Welcome to Employee!</p>
+            <p>Here are your login credentials:</p>
+            <ul class='credentials-list'>
+                <li><strong>Username:</strong> $username</li>
+                <li><strong>Password:</strong> $password</li>
+            </ul>
+            <p>You can login using the link below:</p>
+            <a href='$url' class='cta'>Login to your account</a>
+            <div class='footer'>
+                <p>Best regards,<br>Employee</p>
+                
+            </div>
+        </div>
+    </body>
+    </html>
+    ";
+
+    // Data to post to the Email/send endpoint
+    $data = array(
+        'to' => $email,
+        'subject' => $subject,
+        'body' => $body
+    );
+
+    // Send POST request to Email/send
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, base_url('Email/send'));  // Assuming the endpoint is '/Email/send'
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    // Handle response (optional)
+    if ($response) {
+        // Email sent successfully
+    } else {
+        // Email sending failed, log the error if needed
+    }
+}
 
     public function delete_employee($employee_id)
     {
@@ -305,19 +433,14 @@ public function give_rewards($employee_id)
     if ($this->input->method() === 'post') {
         $subject = $this->input->post('subject');
         $description = $this->input->post('description');
-        
-        // Debug: Print input values
-        print_r("Form submitted successfully.<br>");
-        print_r("Subject: " . $subject . "<br>");
-        print_r("Description: " . $description . "<br>");
 
         // Handle image upload
         $image_path = $this->handle_file_uploads('image', './uploads/rewardsimages/', 'jpg|png|jpeg|webp|jfif', 4096);
 
         if ($image_path) {
-            print_r("Image uploaded successfully: " . $image_path . "<br>");
+            //print_r("Image uploaded successfully: " . $image_path . "<br>");
         } else {
-            print_r("Image upload failed.<br>");
+            //print_r("Image upload failed.<br>");
         }
         
         // Insert reward into the tbl_rewards
@@ -330,9 +453,9 @@ public function give_rewards($employee_id)
         );
         
         if ($this->db->insert('tbl_rewards', $reward_data)) {
-            print_r("Reward inserted successfully.<br>");
+            //print_r("Reward inserted successfully.<br>");
         } else {
-            print_r("Failed to insert reward: " . $this->db->last_query() . "<br>");
+            //print_r("Failed to insert reward: " . $this->db->last_query() . "<br>");
         }
         
         // Prepare notification data
@@ -345,9 +468,9 @@ public function give_rewards($employee_id)
         );
         
         if ($this->db->insert('tbl_notifications', $notification_data)) {
-            print_r("Notification inserted successfully.<br>");
+           // print_r("Notification inserted successfully.<br>");
         } else {
-            print_r("Failed to insert notification: " . $this->db->last_query() . "<br>");
+          //  print_r("Failed to insert notification: " . $this->db->last_query() . "<br>");
         }
         
         // Redirect with a success message
@@ -372,12 +495,12 @@ private function handle_file_uploads($file_input_name, $upload_path, $allowed_ty
 
     $this->load->library('upload', $config);
 
-    // Check if a file is uploaded
+   // Check if a file is uploaded
     if (!empty($_FILES[$file_input_name]['name'])) {
         if ($this->upload->do_upload($file_input_name)) {
             $upload_data = $this->upload->data();
             $filename = $upload_data['file_name'];
-            return base_url($upload_path . $filename); // Return the file URL
+            return $filename; // Return only the filename
         } else {
             // Handle upload failure and log error
             $upload_error = $this->upload->display_errors();

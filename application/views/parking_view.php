@@ -9,7 +9,7 @@
                 
                 <p><strong>Parking ID:</strong> <?php echo $user_slot['slot_id']; ?></p>
                 <p><strong>Vehicle Type:</strong> <?php echo ucfirst($user_slot['vehicle_type']); ?></p>
-                <p><strong>Date:</strong> <?php echo date('Y-m-d', strtotime($user_slot['created_at'])); ?></p>
+                
             </div>
             <div class="text-right">
                 <a href="<?php echo site_url('Parking/download_pdf/' . $user_slot['slot_id']); ?>" class="blue-bg text-white px-4 py-2 rounded-lg ">
@@ -17,8 +17,7 @@
                 </a>
             </div>
         </div>
-    <?php else : ?>
-        <p class="text-gray-500">No parking slot details available.</p>
+        
     <?php endif; ?>
 
 
@@ -52,7 +51,7 @@
                                 <i class="fas fa-user-times"></i>  Free Space
                                 </button>
                             <?php endif; ?>
-                <p><strong>User ID:</strong> <?php echo $slot['user_id']; ?></p>
+                <p><strong>User :</strong> <?php echo getAdminNameById($slot['user_id']); ?></p>
                 <?php if ($slot['vehicle_type'] == 'car'): ?>
                                 <img src="<?php echo base_url('assets/images/car.png'); ?>" alt="Car">
                             <?php elseif ($slot['vehicle_type'] == 'bike'): ?>

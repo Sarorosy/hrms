@@ -3,7 +3,7 @@
     <!-- Footer -->
     <footer class="bg-white p-4 text-center text-black mt-auto">
         <div class="container mx-auto">
-            <p>&copy; <?php echo date('Y'); ?><strong> VDA SOLUTIONS</strong> All rights reserved.</p>
+            <p>&copy; <?php echo date('Y'); ?><strong> EMPLOYEE</strong> All rights reserved.</p>
         </div>
     </footer>
     <!-- jQuery CDN -->
@@ -94,6 +94,27 @@ let tablefour = new DataTable('#complaintstable', {
 });
 let tablefive = new DataTable('#workdetails', {
     order: [[0, 'desc']]  // Assuming 'id' is in the first column (index 0)
+});
+let tablesix = new DataTable('#assettable', {
+    order: [[0, 'desc']]  // Assuming 'id' is in the first column (index 0)
+});
+let tableseven = new DataTable('#viewrequests', {
+    order: [[0, 'desc']]  // Assuming 'id' is in the first column (index 0)
+});
+let tableeight = new DataTable('#parkingrequests', {
+    order: [[0, 'desc']]  // Assuming 'id' is in the first column (index 0)
+});
+let tablenine = new DataTable('#privateheads', {
+    order: [[4, 'desc']]  // Assuming 'id' is in the first column (index 0)
+});
+let tableten = new DataTable('#commonHeads', {
+    order: [[4, 'desc']]  // Assuming 'id' is in the first column (index 0)
+});
+let tableeleven = new DataTable('#usersPayslip', {
+    order: [[1, 'desc']]  // Assuming 'id' is in the first column (index 0)
+});
+let tabletwelve = new DataTable('#positions', {
+    order: [[0, 'asc']]  // Assuming 'id' is in the first column (index 0)
 });
 </script>
 </body>

@@ -38,9 +38,7 @@
                         <span class="text-sm font-medium text-gray-700">Seat Count: <?php echo $room->seat_count; ?></span>
                         
                         <?php if($this->session->userdata('admin_type') == "SUPERADMIN"): ?>
-                            <form action="<?php echo base_url('Rooms/delete_room/' . $room->room_id); ?>" method="post" class="mt-2">
-                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">Delete Room</button>
-                            </form>
+                            <button type="button" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 delete-room" data-room-id="<?php echo $room->room_id; ?>">Delete Room</button>
                         <?php endif; ?>
                     </label>
                 <?php endforeach; ?>
@@ -67,6 +65,7 @@
 
 <h2 class="text-2xl font-semibold mt-8 mb-4">Upcoming Bookings</h2>
 <div class="flex items-center justify-start">
+    <?php if(!empty($bookings)): ?>
     <?php foreach($bookings as $booking): ?>
         <div class="bg-white p-4 rounded-lg shadow-md w-2xl blue-border ml-2">
             <h3 class="text-lg font-semibold"><?php echo $booking->title; ?></h3>
@@ -76,6 +75,9 @@
             <p class="text-sm text-gray-600">End Time: <?php echo date('Y-m-d H:i', strtotime($booking->end_time)); ?></p>
         </div>
     <?php endforeach; ?>
+    <?php else: ?>
+        <p class="text-sm text-gray-600">No Upcoming Booking Found </p>
+    <?php endif; ?>
 </div>
 
 <script>
@@ -98,5 +100,30 @@
                 document.getElementById('room_id').value = this.value;
             });
         });
+        
+        // Handle delete room action
+        document.querySelectorAll('.delete-room').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var roomId = this.getAttribute('data-room-id');
+                if (confirm('Are you sure you want to delete this room?')) {
+                    fetch('<?php echo base_url('Rooms/delete_room/'); ?>' + roomId, {
+                        method: 'POST',
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // Optionally refresh the page or remove the room card from the UI
+                            location.reload();
+                        } else {
+                            alert('Error deleting room.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error deleting room.');
+                    });
+                }
+            });
+        });
+        
     });
 </script>

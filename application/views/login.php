@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Employee Login</title>
     <!-- Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="<?php echo base_url('assets/images/vda-logo.ico') ?>" type="image/x-icon">
     <!-- Custom CSS -->
     <!-- <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css'); ?>"> -->
     <link rel="stylesheet" href="<?php echo base_url('assets/css/login.css'); ?>">
@@ -19,8 +20,8 @@
 <body>
     <div class="container  mx-auto  mt-20 bg-white rounded-lg shadow-lg shadow-grey-300">
         <div class="logo-box flex bg-white mx-auto items-center justify-center py-2 px-1 my-3">
-            <img src="<?php echo base_url('assets/images/vda-logo.png') ?>" alt="Logo" class="w-10 rounded">
-            <h3>VDA SOLUTIONS</h3>
+            <img src="<?php echo base_url('assets/images/vda-logo.png') ?>" alt="Logo" class="w-10 rounded" />
+            <h3>EMPLOYEE</h3>
         </div>
         <div class=" flex items-center justify-center bg-white ">
             <div class="bg-white ">
@@ -50,8 +51,8 @@
     </div>
     <div class="footer">
         <h5 class="font-bold text-white text-center">Release Notes</h5>
-        <p>Version 2.0</p>
-        <p>&copy; <?php echo date('Y'); ?><strong> VDA SOLUTIONS</strong> All rights reserved.</p>
+        <p>Version 3.2</p>
+        <p>&copy; <?php echo date('Y'); ?><strong> Employee</strong> All rights reserved.</p>
     </div>
 
     <!-- Toastr JS -->

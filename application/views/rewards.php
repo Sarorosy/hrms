@@ -8,7 +8,7 @@
                     <h3 class="text-xl font-bold"><?php echo htmlspecialchars($reward['subject']); ?></h3>
                     <p class="text-gray-700"><?php echo htmlspecialchars($reward['description']); ?></p>
                     <?php if (!empty($reward['image'])): ?>
-                        <img src="<?php echo $reward['image']; ?>" alt="Reward Image" class="mt-2 rounded-lg" />
+                        <img src="<?php echo base_url('uploads/rewardsimages/'.$reward['image']); ?>" alt="Reward Image" class="mt-2 rounded-lg" />
                     <?php endif; ?>
                     <p class="text-gray-500 mt-2"><?php echo date('F j, Y, g:i a', strtotime($reward['created_at'])); ?></p>
                 </div>

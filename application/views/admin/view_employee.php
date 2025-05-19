@@ -246,17 +246,21 @@
                 <div class="text-sm text-muted-foreground"><?php echo $employee['decrypt_pass'] ?></div>
               </div>
             </div>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-3 gap-4">
               <div class="grid gap-2">
                 <div class="text-sm font-medium">Designation</div>
                 <div class="text-sm text-muted-foreground"><?php echo getPositionById($employee['position']) ?></div>
+              </div>
+              <div class="grid gap-2">
+                <div class="text-sm font-medium">Department</div>
+                <div class="text-sm text-muted-foreground"><?php echo getDepartmentById($employee['department_id']) ?></div>
               </div>
               <div class="grid gap-2">
                 <div class="text-sm font-medium">Date of Joining</div>
                 <div class="text-sm text-muted-foreground"><?php echo $employee['joining_date'] ?></div>
               </div>
             </div>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-2 gap-4 mt-2">
               <div class="grid gap-2">
                 <div class="text-sm font-medium">Reporting To</div>
                 <div class="text-sm text-muted-foreground"><?php echo getAdminNameById($employee['manager_id']) ?></div>
@@ -325,6 +329,53 @@
               <div class="grid gap-2">
                 <div class="text-sm font-medium">Mother's Name</div>
                 <div class="text-sm text-muted-foreground"><?php echo $employee['mother_name'] ?></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-lg border bg-white text-card-foreground shadow-sm" data-v0-t="card">
+          <div class="flex flex-col space-y-1.5 p-6">
+            <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Financial Details</h3>
+          </div>
+          <div class="p-6 grid gap-4">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="grid gap-2">
+                <div class="text-sm font-medium">UAN Number</div>
+                <div class="text-sm text-muted-foreground"><?php echo $employee['uanno'] ?></div>
+              </div>
+              <div class="grid gap-2">
+                <div class="text-sm font-medium">ESIC</div>
+                <div class="text-sm text-muted-foreground"><?php echo $employee['esic'] ?></div>
+              </div>
+              <div class="grid gap-2">
+                <div class="text-sm font-medium">Bank Name</div>
+                <div class="text-sm text-muted-foreground"><?php echo $employee['bankname'] ?></div>
+              </div>
+            </div>
+            <hr/>
+            <div class="grid grid-cols-3 gap-4">
+              <div class="grid gap-2">
+                <div class="text-sm font-medium">Bank Branch</div>
+                <div class="text-sm text-muted-foreground"><?php echo $employee['branch'] ?></div>
+              </div>
+              <div class="grid gap-2">
+                <div class="text-sm font-medium">Account Number</div>
+                <div class="text-sm text-muted-foreground"><?php echo $employee['account_no'] ?></div>
+              </div>
+              <div class="grid gap-2">
+                <div class="text-sm font-medium">IFSC Code</div>
+                <div class="text-sm text-muted-foreground"><?php echo $employee['ifsc_code'] ?></div>
+              </div>
+            </div>
+            <hr/>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="grid gap-2">
+                <div class="text-sm font-medium">Aadhar Number</div>
+                <div class="text-sm text-muted-foreground"><?php echo $employee['aadharno'] ?></div>
+              </div>
+              <div class="grid gap-2">
+                <div class="text-sm font-medium">PAN card</div>
+                <div class="text-sm text-muted-foreground"><?php echo $employee['pancard'] ?></div>
               </div>
             </div>
           </div>

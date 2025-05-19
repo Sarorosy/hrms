@@ -17,6 +17,10 @@ class Dashboard extends CI_Controller {
         $data['holidays'] = $this->Dashboard_model->get_holidays(5);
         $data['birthdays'] = $this->Dashboard_model->get_birthdays(5);
         $data['events'] = $this->Dashboard_model->get_all_events();
+        $user_id = $this->session->userdata("user_id");
+        $data['latest_leave_requests'] = $this->Dashboard_model->get_latest_leave_request($user_id);
+        $data['latest_notes'] = $this->Dashboard_model->get_latest_note_for_employee($user_id);
+
         // Set the main content view
         $data['main_content'] = 'dashboard_view';
 

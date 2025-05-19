@@ -63,5 +63,25 @@ class Dashboard_model extends CI_Model {
         $this->db->update('tbl_notifications', array('read' => 1));
         return $this->db->affected_rows() > 0;
     }
+    public function get_latest_leave_request($user_id) {
+        $this->db->select('*')
+                 ->from('tbl_leave_request')
+                 ->where('user_id', $user_id)
+                 ->where_in('status', ['pending', 'approved'])
+                 ->order_by('id', 'DESC')
+                 ->limit(2);
+        $query = $this->db->get();
+        return $query->result_array(); // Returns last row if exists, else null
+    }
+
+    public function get_latest_note_for_employee($employee_id) {
+        $this->db->select('*')
+                 ->from('tbl_notes')
+                 ->where('employee_id', $employee_id)
+                 ->order_by('id', 'DESC')
+                 ->limit(3);
+        $query = $this->db->get();
+        return $query->result_array(); // Returns last row if exists, else null
+    }
 }
 ?>

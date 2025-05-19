@@ -12,6 +12,7 @@ class Login_model extends CI_Model {
     public function get_user($username, $password)
 {
     $this->db->where('email', $username);
+    $this->db->or_where('employee_id', $username);
     $this->db->where('status', 'active');
     $query = $this->db->get('tbl_admin');
 

@@ -79,6 +79,9 @@
                 <a class="bg-white inline-block py-2 px-4 blue-text font-semibold" href="#job-details">Job Details</a>
             </li>
             <li class="mr-1">
+                <a class="bg-white inline-block py-2 px-4 blue-text font-semibold" href="#financial-details">Fianancial Details</a>
+            </li>
+            <li class="mr-1">
                 <a class="bg-white inline-block py-2 px-4 blue-text font-semibold" href="#document-uploads">Document Uploads</a>
             </li>
         </ul>
@@ -255,8 +258,8 @@
                         <div class="w-full md:w-1/2 px-3 mb-6">
                             <label for="role" class="block text-sm font-medium text-gray-700">Role:</label>
                             <select id="role" name="role" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-                                <option value="USER" <?php echo (isset($employee['role']) && $employee['role'] == 'USER') ? 'selected' : ''; ?>>User</option>
-                                <option value="ADMIN" <?php echo (isset($employee['role']) && $employee['role'] == 'ADMIN') ? 'selected' : ''; ?>>Admin</option>
+                                <option value="USER" <?php echo (isset($employee['role']) && $employee['role'] == 'USER') ? 'selected' : ''; ?>>Employee</option>
+                                <option value="ADMIN" <?php echo (isset($employee['role']) && $employee['role'] == 'ADMIN') ? 'selected' : ''; ?>>Manager</option>
                                 <?php if($this->session->userdata("admin_type") == "SUPERADMIN") { ?>
                                 <option value="SUPERADMIN" <?php echo (isset($employee['role']) && $employee['role'] == 'SUPERADMIN') ? 'selected' : ''; ?>>Super Admin</option>
                                 <?php } ?>
@@ -286,6 +289,18 @@
         <?php endforeach; ?>
     </select>
 </div>
+<div class="w-full md:w-1/2 px-3 mb-6">
+    <label for="department" class="block text-sm font-medium text-gray-700">Department:</label>
+    <select id="department" name="department" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        <option value="">Select Department</option>
+        <?php foreach ($departments as $department): ?>
+            <option value="<?php echo $department['id']; ?>" 
+                <?php echo isset($employee['department_id']) && $employee['department_id'] == $department['id'] ? 'selected' : ''; ?>>
+                <?php echo $department['name']; ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>
 
 
                         <!-- Joining Date -->
@@ -307,6 +322,11 @@
                             <label class="block text-sm font-bold text-gray-700">CTC</label>
                             <input type="number" id="ctc" name="ctc" value="<?php echo $employee['ctc'] ?? ''; ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md bg-white px-4 py-2">
                         </div>
+                        <!-- CTC -->
+                        <div class="w-full md:w-1/2 px-3 mb-6">
+                            <label class="block text-sm font-bold text-gray-700">Leave Balance</label>
+                            <input type="number" id="leave_balance" name="leave_balance" value="<?php echo $employee['leave_balance'] ?? ''; ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md bg-white px-4 py-2">
+                        </div>
 
                         <!-- Official ID -->
                     <div class="w-full md:w-1/2 px-3 mb-6">
@@ -321,6 +341,62 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Financial Details Tab -->
+<div id="financial-details" class="tab-content hidden">
+    <div class="bg-gray-100 p-6 rounded-md">
+        <div class="flex flex-wrap -mx-3">
+            <!-- UAN Number (non-editable) -->
+            <div class="w-full md:w-1/2 px-3 mb-6">
+                <label class="block text-sm font-bold text-gray-700">UAN Number</label>
+                <input type="text" id="uanno" name="uanno" value="<?php echo $employee['uanno'] ?? ''; ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+            </div>
+            
+            <!-- ESIC (non-editable) -->
+            <div class="w-full md:w-1/2 px-3 mb-6">
+                <label class="block text-sm font-bold text-gray-700">ESIC</label>
+                <input type="text" id="esic" name="esic" value="<?php echo $employee['esic'] ?? ''; ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+            </div>
+            
+            <!-- Aadhar Number -->
+            <div class="w-full md:w-1/2 px-3 mb-6">
+                <label for="aadharno" class="block text-sm font-medium text-gray-700">Aadhar Number</label>
+                <input type="text" id="aadharno" name="aadharno" value="<?php echo $employee['aadharno'] ?? ''; ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+            </div>
+
+            <!-- PAN Card Number -->
+            <div class="w-full md:w-1/2 px-3 mb-6">
+                <label for="pancard" class="block text-sm font-medium text-gray-700">PAN Card Number</label>
+                <input type="text" id="pancard" name="pancard" value="<?php echo $employee['pancard'] ?? ''; ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+            </div>
+
+            <!-- Bank Name -->
+            <div class="w-full md:w-1/2 px-3 mb-6">
+                <label for="bankname" class="block text-sm font-medium text-gray-700">Bank Name</label>
+                <input type="text" id="bankname" name="bankname" value="<?php echo $employee['bankname'] ?? ''; ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+            </div>
+
+            <!-- Bank Branch -->
+            <div class="w-full md:w-1/2 px-3 mb-6">
+                <label for="branch" class="block text-sm font-medium text-gray-700">Branch</label>
+                <input type="text" id="branch" name="branch" value="<?php echo $employee['branch'] ?? ''; ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+            </div>
+
+            <!-- Account Number -->
+            <div class="w-full md:w-1/2 px-3 mb-6">
+                <label for="account_no" class="block text-sm font-medium text-gray-700">Account Number</label>
+                <input type="text" id="account_no" name="account_no" value="<?php echo $employee['account_no'] ?? ''; ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+            </div>
+
+            <!-- IFSC Code -->
+            <div class="w-full md:w-1/2 px-3 mb-6">
+                <label for="ifsc_code" class="block text-sm font-medium text-gray-700">IFSC Code</label>
+                <input type="text" id="ifsc_code" name="ifsc_code" value="<?php echo $employee['ifsc_code'] ?? ''; ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+            </div>
+        </div>
+    </div>
+</div>
+
 
         <!-- Documents Tab -->
 <div id="document-uploads" class="tab-content hidden bg-gray-100 p-6 rounded-md">

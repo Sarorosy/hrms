@@ -52,9 +52,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['/'] = 'Dashboard';
 $route['login'] = 'Login';
 $route['rewards'] = 'Employees/rewards';
+$route['asset'] = 'Asset/index';
 $route['default_controller'] = 'Dashboard';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+
+$route['manage-payroll'] = 'ManagePayroll/index';
+$route['manage-payroll/add/(:any)'] = 'ManagePayroll/manage_payroll_add/$1';
+$route['manage-payroll/view_all_payslips/(:any)'] = 'ManagePayroll/view_user_allpayslips/$1';
+$route['payslips/(:any)'] = 'ManagePayroll/view_user_allpayslips/$1';
+$route['manage-payroll/delete_payslip/(:any)'] = 'ManagePayroll/delete_payslip/$1' ;
+//private allowances deductions bonus
+$route['managepayroll/add_bonus_deduction'] = 'ManagePayroll/add_bonus_deduction';
+$route['managepayroll/edit_bonus_deduction'] = 'ManagePayroll/edit_bonus_deduction';
+$route['managepayroll/delete_head/(:num)'] = 'ManagePayroll/delete_head/$1';
+
+//common allowances deductions bonus
+$route['managepayroll/add_common_bonus_deduction'] = 'ManagePayroll/add_common_bonus_deduction';
+$route['managepayroll/edit_common_bonus_deduction'] = 'ManagePayroll/edit_common_bonus_deduction';
+$route['managepayroll/delete_common_bonus_deduction/(:num)'] = 'ManagePayroll/delete_common_bonus_deduction/$1';
+
+$route['managepayroll/generate_payslip/(:any)'] = 'ManagePayroll/generate_payslip/$1';
+$route['manage-payroll/view_payslip/(:any)'] = 'ManagePayroll/view_payslip/$1';
+$route['manage-payroll/view-payslip-details/(:any)'] = 'ManagePayroll/view_payslip_details/$1';
+
+$route['managepayroll/common_heads'] = 'ManagePayroll/common_heads';
+$route['managepayroll/private_heads'] = 'ManagePayroll/private_heads';
+$route['managepayroll/get_head/(:any)'] = 'ManagePayroll/get_head/$1';
 // $route['login/authenticate'] = 'Login/authenticate';
 // $route['welcome'] = 'Index';

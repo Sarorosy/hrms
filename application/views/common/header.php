@@ -10,7 +10,7 @@ if (!$this->session->userdata("userloggedin") == true) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="<?php echo base_url('assets/images/vda-logo.ico') ?>" type="image/x-icon">
-    <title>VDA SOLUTIONS</title>
+    <title>EMPLOYEE</title>
     <!-- Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -96,7 +96,7 @@ if (!$this->session->userdata("userloggedin") == true) {
             <div class="logo-box ">
                 <a href="<?php echo base_url(); ?>" class="flex items-center">
                     <img src="<?php echo base_url('assets/images/vda-logo.png') ?>" alt="Logo" class="w-10 rounded-lg mx-2">
-                    <h1 class="text-3xl font-bold">VDA</h1>
+                    <h1 class="text-3xl font-bold">EMPLOYEE</h1>
                 </a>
             </div>
 
@@ -129,6 +129,25 @@ if (!$this->session->userdata("userloggedin") == true) {
                             <?php endif; ?>
                         </a>
                     </li>
+                    
+                     <!-- Display red reminder if not empty -->
+                <?php
+                $pending_reminder = get_pending_reminders(); // Fetch the first pending reminder
+                if (!empty($pending_reminder)):
+                ?>
+                    <li class="flex items-center">
+                        <div class="bg-red-500 text-white rounded-full h-8 w-8 flex items-center justify-center text-xs">
+                            <i class="fas fa-stopwatch"></i>
+                        </div>
+                        <span class="ml-2 text-red-500 font-semibold flex flex-col">
+                            <?php echo htmlspecialchars($pending_reminder['name']); // Adjust this to your actual reminder field ?>
+                            <span class="text-xsm text-gray-400" style="font-size:12px;">
+                            <?php echo htmlspecialchars($pending_reminder['datetime']); // Adjust this to your actual reminder field ?>
+                        </span>
+                        </span>
+                    </li>
+                <?php endif; ?>
+                
                     <li class="relative">
                         <a href="#" class="text-black flex items-center dropdown-toggle">
                             <img src="<?php echo base_url('uploads/userdetailuploads/' . get_profile_pic_by_id($this->session->userdata('user_id'))) ?>" alt="profile_pic" class="w-10 rounded-full mx-1">
@@ -317,7 +336,7 @@ if (!$this->session->userdata("userloggedin") == true) {
                     <li class="<?php echo $this->uri->uri_string() == 'Parking' ? 'active-link' : ''; ?>">
                         <a href="<?php echo base_url('Parking') ?>" class="block py-2 px-4 "><i class="fas fa-car"></i> Parking</a>
                     </li>
-                    <?php if ($this->session->userdata('admin_type') == 'SUPERADMIN') { ?>
+                    <?php if ($this->session->userdata('admin_type') == 'SUPERADMIN' || $this->session->userdata('admin_type') == 'ADMIN') { ?>
                         <li class="<?php echo $this->uri->uri_string() == 'Parking/requests' ? 'active-link' : ''; ?>">
                             <a href="<?php echo base_url('Parking/requests') ?>" class="block py-2 px-4 "><i class="fas fa-history"></i> Parking Requests</a>
                         </li>
@@ -329,7 +348,7 @@ if (!$this->session->userdata("userloggedin") == true) {
                                 <a href="<?php echo base_url('Manageleave/apply_leave') ?>" class="block py-2 px-1"><i class="fas fa-plus"></i> Apply Leave</a>
                             </li>
                             <li class="text-white">
-                                <a href="<?php echo base_url('Manageleave/leave_summary') ?>" class="block py-2 px-1 "><i class="fas fa-suitcase"></i> View Summary</a>
+                                <a href="<?php echo base_url('Manageleave/leave_summary') ?>" class="block py-2 px-1 "><i class="fas fa-suitcase"></i> My Summary</a>
                             </li>
                             <?php if ($this->session->userdata('admin_type') == 'SUPERADMIN' || $this->session->userdata('admin_type') == 'ADMIN') { ?>
                                 <li class="text-white">
@@ -342,6 +361,16 @@ if (!$this->session->userdata("userloggedin") == true) {
                     </li>
                     <li class="<?php echo $this->uri->uri_string() == 'Rooms' ? 'active-link' : ''; ?>">
                         <a href="<?php echo base_url('Rooms') ?>" class="block py-2 px-4 "><i class="fas fa-door-open"></i> Rooms</a>
+                    </li>
+                    <li class="<?php echo $this->uri->uri_string() == 'asset' ? 'active-link' : ''; ?> flex items-center">
+                        <a href="<?php echo base_url('asset') ?>" class="block py-2 px-4 "><i class="fas fa-box"></i> Asset </a>
+                        <?php if($this->session->userdata("admin_type") == "SUPERADMIN" ||$this->session->userdata("admin_type") == "HR" ){ ?>
+                        <?php 
+                        $assetcount = count_pending_asset_requests();
+                        if($assetcount > 0){ ?>
+                           <span class="bg-white px-2 py-1 bluetext rounded-full text-sm  "> <?php echo $assetcount; ?> </span>
+                      <?php  }
+                        ?> <?php } ?>
                     </li>
 
                     <?php if ($this->session->userdata('admin_type') == 'SUPERADMIN' || $this->session->userdata('admin_type') == 'HR') { ?>
@@ -361,8 +390,13 @@ if (!$this->session->userdata("userloggedin") == true) {
                         </li>
                     <?php } ?>
                     <li>
-                        <a href="#" class="block py-2 px-4 <?php echo $this->uri->uri_string() == 'Payroll' ? 'active-link' : ''; ?>"><i class="fas fa-money-check-alt"></i> Payroll</a>
+                        <a href="<?php echo base_url('payslips/' . base64_encode($this->session->userdata('user_id'))); ?>"  class="block py-2 px-4 <?php echo $this->uri->uri_string() == 'payslips' ? 'active-link' : ''; ?>"><i class="fas fa-money-check-alt"></i> Payslip</a>
                     </li>
+                    <?php if ($this->session->userdata('admin_type') == 'SUPERADMIN' || $this->session->userdata('admin_type') == 'HR') { ?>
+                    <li>
+                        <a href="<?php echo base_url('manage-payroll') ?>" class="block py-2 px-4 <?php echo $this->uri->uri_string() == 'manage-payroll' ? 'active-link' : ''; ?>"><i class="fas fa-money-check-alt"></i> Manage Payroll</a>
+                    </li>
+                    <?php } ?>
                     <li class="<?php echo $this->uri->uri_string() == 'Profile' ? 'active-link' : ''; ?>">
                         <a href="<?php echo base_url('Profile') ?>" class="block py-2 px-4 "><i class="fas fa-user"></i> Profile</a>
                     </li>
@@ -371,6 +405,9 @@ if (!$this->session->userdata("userloggedin") == true) {
                             <a href="<?php echo base_url('Complaints') ?>" class="block py-2 px-4 "><i class="fas fa-exclamation-triangle"></i> Complaint</a>
                         </li>
                     <?php } ?>
+                    <li class="<?php echo $this->uri->uri_string() == 'Notes' ? 'active-link' : ''; ?>">
+                            <a href="<?php echo base_url('Notes') ?>" class="block py-2 px-4 "><i class="fas fa-sticky-note"></i> Notes</a>
+                        </li>
                     <?php if ($this->session->userdata('admin_type') != 'SUPERADMIN') { ?>
                         <li class="<?php echo $this->uri->uri_string() == 'rewards' ? 'active-link' : ''; ?>">
                             <a href="<?php echo base_url('rewards') ?>" class="block py-2 px-4 "><i class="fas fa-gift"></i> Rewards</a>
@@ -379,6 +416,9 @@ if (!$this->session->userdata("userloggedin") == true) {
                     <?php if ($this->session->userdata('admin_type') == 'SUPERADMIN') { ?>
                         <li class="<?php echo $this->uri->uri_string() == 'Complaints' ? 'active-link' : ''; ?>">
                             <a href="<?php echo base_url('Complaints/all_complaints_view') ?>" class="block py-2 px-4 "><i class="fa fa-exclamation-circle" aria-hidden="true"></i> View Complaints</a>
+                        </li>
+                        <li class="<?php echo $this->uri->uri_string() == 'Departments' ? 'active-link' : ''; ?>">
+                            <a href="<?php echo base_url('Departments') ?>" class="block py-2 px-4 "><i class="fas fa-building"></i> Departments</a>
                         </li>
                     <?php  } ?>
                     <li class="logout-li">

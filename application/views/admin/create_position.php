@@ -1,6 +1,6 @@
 <!-- application/views/admin/create_position_view.php -->
 
-<div class="container mx-auto p-6">
+<div class=" mx-auto p-6 bg-white mt-5">
     <h2 class="text-2xl font-bold mb-4">Create New Position</h2>
 
     <?php echo form_open('Positions/create_position', ['class' => 'w-full max-w-lg']); ?>

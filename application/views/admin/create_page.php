@@ -27,8 +27,8 @@
          <div class="border border-gray-300 p-4 rounded-lg bg-white">
             <h2 class="text-lg font-semibold mb-2">Create an Room <i class="fas fa-door-open"></i></h2>
             <p class="text-gray-500 my-3">Create a new room for Managers and HR use it for meeting and other purposes.</p>
-            <a href="<?php echo base_url('Admin/create_event_form'); ?>" class="blue-bg text-white font-bold py-2 px-4 rounded">
-                Create Event
+            <a href="<?php echo base_url('Rooms/add_room'); ?>" class="blue-bg text-white font-bold py-2 px-4 rounded">
+                Create Room
             </a>
         </div>
         

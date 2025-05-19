@@ -231,8 +231,8 @@ $(document).ready(function() {
 
             // If it's a holiday, set the background and append holiday text
             if (holiday) {
-                cell.css('background-color', '#add8e6'); // Light blue background color
-                cell.append('<div style="color: blue; font-weight: 500;font-size:15px;">' + holiday.title + '</div>');
+                //cell.css('background-color', '#add8e6'); // Light blue background color
+                cell.append('<div style="color: white; font-weight: 400;font-size:15px;background-color:rgb(89,167,255); padding:3px 1px; border-radius:3px;">' + holiday.title + '</div>');
             } else if (entries.length > 0) {
                 // Directly format the times if they are in the correct timezone already
                 var loginTime = entries[0].login_time ? moment(entries[0].date + ' ' + entries[0].login_time).format('hh:mm A') : '';
@@ -248,8 +248,8 @@ $(document).ready(function() {
                 cell.css('background-color', '#c6f6d5'); // Green background color for attendance
             }else if (!isSunday && date.isBefore(moment())) {
                 // If no entries, not a Sunday, and past date, mark as absent
-                cell.css('background-color', '#E6ACAC'); // Red for absence
-                cell.append('<div style="color: red; font-size: 15px;">Absent</div>');
+                //cell.css('background-color', '#E6ACAC'); // Red for absence
+                cell.append('<div style="color: white; font-size: 15px;background-color:#eb5656; padding:3px 1px; border-radius:3px;">absent</div>');
             }
         },
         dayClick: function(date) {

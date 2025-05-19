@@ -37,6 +37,24 @@ if(!function_exists('strdate')){
     }
     
 }
+if (!function_exists('count_pending_asset_requests')) {
+    function count_pending_asset_requests()
+    {
+        // Get the CodeIgniter instance
+        $CI =& get_instance();
+        
+        // Load the database if it is not already loaded
+        $CI->load->database();
+
+        // Run the query to count rows with status 'pending'
+        $CI->db->from('tbl_asset_requests');
+        $CI->db->where('status', 'pending');
+        $count = $CI->db->count_all_results();
+
+        return $count;
+    }
+}
+
 if(!function_exists('getStatusColorClass')){
     function getStatusColorClass($status) {
         switch ($status) {
@@ -78,7 +96,31 @@ if (!function_exists('getAdminNameById')) {
     }
 }
 
+if (!function_exists('getAssetNameById')) {
+    function getAssetNameById($userId)
+    {
+        // Get CodeIgniter instance
+        $CI = &get_instance();
 
+        // Assuming you have autoloaded the database library or loaded it in the function
+        $CI->load->database();
+
+        // Query to fetch name from tbl_admin based on id
+        $query = $CI->db->select('assetname')
+                        ->from('tbl_assets')
+                        ->where('assetid', $userId)
+                        ->get();
+
+        // Check if query returned a result
+        if ($query->num_rows() > 0) {
+            $row = $query->row();
+            return $row->assetname;
+        }
+
+        // Return null if no matching user found
+        return null;
+    }
+}
 if (!function_exists('getPositionById')) {
     function getPositionById($id)
     {
@@ -93,6 +135,33 @@ if (!function_exists('getPositionById')) {
         // Query to fetch the 'name' field from 'tbl_positions' based on 'id'
         $query = $CI->db->select('name')
                         ->from('tbl_positions')
+                        ->where('id', $id)
+                        ->get();
+
+        // Check if query returned a result
+        if ($query->num_rows() > 0) {
+            $row = $query->row();
+            return $row->name;
+        }
+
+        // Return null if no matching position found
+        return null;
+    }
+}
+if (!function_exists('getDepartmentById')) {
+    function getDepartmentById($id)
+    {
+        // Get CodeIgniter instance
+        $CI = &get_instance();
+
+        // Ensure database is loaded
+        if (!$CI->load->is_loaded('database')) {
+            $CI->load->database();
+        }
+
+        // Query to fetch the 'name' field from 'tbl_positions' based on 'id'
+        $query = $CI->db->select('name')
+                        ->from('tbl_departments')
                         ->where('id', $id)
                         ->get();
 
@@ -169,3 +238,35 @@ if(!function_exists('get_unread_messages_count')){
         $CI->db->from('tbl_messages');
         return $CI->db->count_all_results();
     }}
+    
+    
+    if (!function_exists('get_pending_reminders')) {
+    
+    function get_pending_reminders()
+    {
+        $ci =& get_instance();
+        $ci->load->database();
+        
+        // Get current user ID from session
+        $user_id = $ci->session->userdata('user_id');
+        
+        // Set date range for current time to the end of today
+        $start_datetime = date('Y-m-d H:i:s'); // Current time
+        $end_datetime = date('Y-m-d 23:59:59'); // End of today
+
+        // Run the query
+        $ci->db->select('*');
+        $ci->db->from('tbl_notes');
+        $ci->db->where('employee_id', $user_id);
+        $ci->db->where('status', 'pending');
+        $ci->db->where('remind', 'yes');
+        $ci->db->where('datetime >=', $start_datetime);
+        $ci->db->where('datetime <=', $end_datetime);
+        $ci->db->limit(1); // Fetch only the first row
+        $query = $ci->db->get();
+        
+        return $query->row_array(); // Return the first row as an associative array
+    }
+    }
+    
+    

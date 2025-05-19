@@ -25,6 +25,7 @@ class Manageleave extends CI_Controller {
                 'status' => 'Pending',
                 'leave_type_duration' =>$this->input->post('leave_type_duration'),
                 'leave_type' =>$this->input->post('leave_type_select'),
+                'leave_pay_type' =>$this->input->post('leave_pay_type_select'),
                 'start_date' =>$this->input->post('start_date'),
                 'end_date' =>$this->input->post('end_date'),
             );

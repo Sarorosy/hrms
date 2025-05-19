@@ -25,6 +25,12 @@ public function get_positions()
     $query = $this->db->get('tbl_positions');
     return $query->result_array();
 }
+public function get_departments()
+{
+    
+    $query = $this->db->get('tbl_departments');
+    return $query->result_array();
+}
 
     public function get_all_employees()
     {

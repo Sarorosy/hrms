@@ -20,7 +20,6 @@
                         <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="user-type">User Type</label>
                         <select class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="user-type" name="user_type">
                             <option value="">Select user type</option>
-                            <option value="user">User</option>
                             <option value="co_employee">Co-Employee</option>
                             <option value="hr">HR</option>
                             <option value="manager">Manager</option>

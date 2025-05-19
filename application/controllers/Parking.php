@@ -30,13 +30,15 @@ class Parking extends CI_Controller {
 		$vehicle_number = $this->input->post('vehicle_number');
 		$vehicle_type = $this->input->post('vehicle_type');
 	
-		// Check if there is an existing pending request
-		$existing_request = $this->Parking_model->check_pending_request($user_id, $slot_id);
-	
-		if ($existing_request) {
-			// If a pending request exists, set flashdata error
-			$this->session->set_flashdata('error', 'Your previous request is in progress.');
-		} else {
+		$existing_request = $this->Parking_model->check_pending_request($user_id);
+
+        if ($existing_request === 'pending') {
+            // If a pending request exists, set flashdata error
+            $this->session->set_flashdata('error', 'Your previous request is in progress.');
+        } elseif ($existing_request === 'approved') {
+            // If an approved request exists, set flashdata error
+            $this->session->set_flashdata('error', 'You already have an assigned parking space.');
+        } else {
 			// Prepare the new request data
 			$request_data = array(
 				'user_id' => $user_id,
@@ -185,7 +187,7 @@ class Parking extends CI_Controller {
 		<body>
 			<div class="header">
 				<img src="' . $base_url . 'assets/images/vda-logo.png" alt="VDA Logo">
-				<h1>VDA Parking Receipt</h1>
+				<h1>Employee Parking Receipt</h1>
 			</div>
 			<div class="content">
 				<div class="details">

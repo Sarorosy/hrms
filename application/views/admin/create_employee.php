@@ -39,8 +39,8 @@
             <div class="mb-4">
                 <label for="role" class="block text-sm font-medium text-gray-700">Role:</label>
                 <select id="role" name="role" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" onchange="toggleManagerDropdown()">
-                    <option value="USER">User</option>
-                    <option value="ADMIN">Admin</option>
+                    <option value="USER">Employee</option>
+                    <option value="ADMIN">Manager</option>
                     <option value="SUPERADMIN">Super Admin</option>
                     <option value="HR">HR</option>
                 </select>
@@ -51,6 +51,15 @@
                     <option value="">Select Position</option>
                     <?php foreach ($positions as $position): ?>
                         <option value="<?php echo $position['id']; ?>"><?php echo $position['name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="department" class="block text-sm font-medium text-gray-700">Department:</label>
+                <select id="department" name="department" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" >
+                    <option value="">Select Department</option>
+                    <?php foreach ($departments as $department): ?>
+                        <option value="<?php echo $department['id']; ?>"><?php echo $department['name']; ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

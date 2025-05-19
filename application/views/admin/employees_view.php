@@ -42,11 +42,24 @@
                             <?php echo $employee['status']; ?>
                         </td>
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
-                            <?php echo $employee['role']; ?>
+                            <?php 
+                                if ($employee['role'] == "USER") {
+                                    echo "Employee";
+                                } elseif ($employee['role'] == "ADMIN") {
+                                    echo "Manager";
+                                } elseif ($employee['role'] == "HR") {
+                                    echo "HR";
+                                } elseif ($employee['role'] == "SUPERADMIN") {
+                                    echo "Super Admin";
+                                } else {
+                                    echo "Unknown Role"; // Default case if role doesn't match
+                                }
+                            ?>
                         </td>
+
                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-300 flex space-x-2 flex-col justify-center items-center">
-                            <a href="<?php echo base_url('Employees/view_employee/' . $employee['id']); ?>" class="text-blue-500 hover:text-blue-700">View</a>
-                            <a href="<?php echo base_url('Employees/edit_employee/' . $employee['id']); ?>" class="text-green-500 hover:text-green-700">Edit</a>
+                            <a href="<?php echo base_url('Employees/view_employee/' . base64_encode($employee['id'])); ?>" class="text-blue-500 hover:text-blue-700">View</a>
+                            <a href="<?php echo base_url('Employees/edit_employee/' . base64_encode($employee['id'])); ?>" class="text-green-500 hover:text-green-700">Edit</a>
                             <a href="<?php echo base_url('Employees/delete_employee/' . $employee['id']); ?>" class="text-red-500 hover:text-red-700" onclick="return confirm('Are you sure you want to delete this employee?');">Delete</a>
                         </td>
                     </tr>

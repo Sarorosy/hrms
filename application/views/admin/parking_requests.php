@@ -2,10 +2,10 @@
     <h2 class="text-3xl font-bold mb-6">Parking Requests</h2>
     <?php if (!empty($requests)) : ?>
         <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+            <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md" id="parkingrequests">
                 <thead class="blue-bg text-white">
                     <tr>
-                        <th class="py-2 px-4 border-b">User ID</th>
+                        <th class="py-2 px-4 border-b">User</th>
                         <th class="py-2 px-4 border-b">Vehicle Type</th>
                         <th class="py-2 px-4 border-b">Slot ID</th>
                         <th class="py-2 px-4 border-b">Vehicle Number</th>
@@ -16,7 +16,7 @@
                 <tbody>
                     <?php foreach ($requests as $request) : ?>
                         <tr class="hover:bg-gray-100">
-                            <td class="py-2 px-4 border-b"><?php echo $request['user_id']; ?></td>
+                            <td class="py-2 px-4 border-b"><?php echo getAdminNameById($request['user_id']); ?></td>
                             <td class="py-2 px-4 border-b"><?php echo ucfirst($request['vehicle_type']); ?></td>
                             <td class="py-2 px-4 border-b"><?php echo $request['slot_id']; ?></td>
                             <td class="py-2 px-4 border-b"><?php echo $request['vehicle_number']; ?></td>

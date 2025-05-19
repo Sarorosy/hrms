@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+// error_reporting(E_ALL);
+// ini_set("display_errors",1);
 class Profile extends CI_Controller {
 
     public $Dashboard_model, $Profile_model,$session, $form_validation, $agent;
@@ -70,6 +71,12 @@ class Profile extends CI_Controller {
                 'mother_name' => $this->input->post('mother_name'),
                 'son_count' => $this->input->post('son_count'),
                 'daughter_count' => $this->input->post('daughter_count'),
+                'aadharno' => $this->input->post('aadharno'),
+                'pancard' => $this->input->post('pancard'),
+                'bankname' => $this->input->post('bankname'),
+                'branch' => $this->input->post('branch'),
+                'account_no' => $this->input->post('account_no'),
+                'ifsc_code' => $this->input->post('ifsc_code'),
                 'education' => $education_data
             );
 

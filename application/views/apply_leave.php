@@ -92,6 +92,15 @@
                     </select>
                     <?php echo form_error('leave_type_select', '<div class="text-red-500 text-sm mt-1">', '</div>'); ?>
                 </div>
+                <div class="mb-4 w-3/5 mx-2">
+                    <label for="leave_pay_type" class="block text-gray-700 font-bold mb-2">Leave pay Type</label>
+                    <select name="leave_pay_type_select" id="leave_type" class="w-full p-2 border border-gray-300 rounded">
+                        <option value="unpaid">Unpaid</option>
+                        <option value="paid">Paid</option>
+                        
+                    </select>
+                    <?php echo form_error('leave_type_select', '<div class="text-red-500 text-sm mt-1">', '</div>'); ?>
+                </div>
                 <div class="mb-4 w-2/5 mx-2">
                     <label for="start_date" class="block text-gray-700 font-bold mb-2">Date</label>
                     <input type="date" name="start_date" id="start_date_single" class="w-full p-2 border border-gray-300 rounded" value="<?php echo set_value('start_date'); ?>">
@@ -122,7 +131,8 @@
             <?php endif; ?>
             <?php echo form_open(base_url('Manageleave/apply_leave')); ?>
                 <input type="hidden" name="leave_type_duration" value="multi_days">
-                <div class="mb-4">
+                <div class="flex w-full items-center justify-center">
+                <div class="mb-4 w-1/2">
                     <label for="leave_type" class="block text-gray-700 font-bold mb-2">Leave Type</label>
                     <select name="leave_type_select" id="leave_type" class="w-full p-2 border border-gray-300 rounded">
                         <option value="">Select leave type</option>
@@ -132,6 +142,16 @@
                         <option value="family">Family</option>
                     </select>
                     <?php echo form_error('leave_type_select', '<div class="text-red-500 text-sm mt-1">', '</div>'); ?>
+                </div>
+                <div class="mb-4 w-1/2 mx-2">
+                    <label for="leave_pay_type" class="block text-gray-700 font-bold mb-2">Leave pay Type</label>
+                    <select name="leave_pay_type_select" id="leave_type" class="w-full p-2 border border-gray-300 rounded">
+                        <option value="unpaid">Unpaid</option>
+                        <option value="paid">Paid</option>
+                        
+                    </select>
+                    <?php echo form_error('leave_type_select', '<div class="text-red-500 text-sm mt-1">', '</div>'); ?>
+                </div>
                 </div>
                 <div class="flex w-full items-center justify-between">
                 <div class="mb-4 w-1/2 mx-2">

@@ -25,6 +25,9 @@
             <a href="#job-details" class="tab-link" onclick="showTab(event, 'job-details')">Job Details</a>
         </li>
         <li class="p-2 bg-gray-300 rounded text-center font-bold">
+            <a href="#job-details" class="tab-link" onclick="showTab(event, 'financial-details')">Financial Details</a>
+        </li>
+        <li class="p-2 bg-gray-300 rounded text-center font-bold">
             <a href="#documents" class="tab-link" onclick="showTab(event, 'documents')">Documents</a>
         </li>
     </ul>
@@ -252,10 +255,12 @@
                                 <i class="far fa-copy text-xl bluetext ml-5" onclick="copyToClipboard('#employeeId')"></i>
                             </div>
                         </div>
+                        <?php if($user['role'] == " USER") { ?>
                         <div class="w-full md:w-1/2 px-3 mb-6">
                             <label class="block text-sm font-bold text-gray-700">Manager Name</label>
                             <p class="mt-1 block w-full p-3 border border-gray-300 rounded-md bg-white px-4 py-2"><?php echo getAdminNameById($user['manager_id']) ?? 'Not Defined'; ?></p>
                         </div>
+                        <?php } ?>
                         <div class="w-full md:w-1/2 px-3 mb-6">
                             <label class="block text-sm font-bold text-gray-700">Official ID</label>
                             <p class="mt-1 block w-full p-3 border border-gray-300 rounded-md bg-white px-4 py-2"><?php echo $user['email'] ?? ''; ?></p>
@@ -310,6 +315,52 @@
                                 <i class="far fa-copy text-xl bluetext ml-5" onclick="copyToClipboard('#official_id')"></i>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Financial Details Tab -->
+            <div id="financial-details" class="tab-content hidden">
+                <div class="bg-gray-100 p-6 rounded-md">
+                    <div class="flex flex-wrap -mx-3">
+                        <div class="w-full md:w-1/2 px-3 mb-6">
+                            <label class="block text-sm font-bold text-gray-700">UAN number</label>
+                            <div class="relative mt-1 block w-full p-3 border border-gray-300 rounded-md bg-white px-4 py-2 flex items-center">
+                                <span id="uanno"><?php echo $user['uanno'] ?? ''; ?></span>
+
+                                <i class="far fa-copy text-xl bluetext ml-5" onclick="copyToClipboard('#uanno')"></i>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-1/2 px-3 mb-6">
+                            <label class="block text-sm font-bold text-gray-700">ESIC</label>
+                            <p class="mt-1 block w-full p-3 border border-gray-300 rounded-md bg-white px-4 py-2"><?php echo $user['esic'] ?? 'Not Defined'; ?></p>
+                        </div>
+                        <div class="w-full md:w-1/2 px-3 mb-6">
+                        <label for="aadharno" class="block text-sm font-medium text-gray-700">Aadhar Number</label>
+                        <input type="text" id="aadharno" name="aadharno" value="<?php echo set_value('aadharno', $user['aadharno'] ?? ''); ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                    </div>
+                    <div class="w-full md:w-1/2 px-3 mb-6">
+                        <label for="pancard" class="block text-sm font-medium text-gray-700">PAN Card Number</label>
+                        <input type="text" id="pancard" name="pancard" value="<?php echo set_value('pancard', $user['pancard'] ?? ''); ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                    </div>
+                    <div class="w-full md:w-1/2 px-3 mb-6">
+                        <label for="bankname" class="block text-sm font-medium text-gray-700">Bank Name</label>
+                        <input type="text" id="bankname" name="bankname" value="<?php echo set_value('bankname', $user['bankname'] ?? ''); ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                    </div>
+                    <div class="w-full md:w-1/2 px-3 mb-6">
+                        <label for="branch" class="block text-sm font-medium text-gray-700">Bank Branch</label>
+                        <input type="text" id="branch" name="branch" value="<?php echo set_value('branch', $user['branch'] ?? ''); ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                    </div>
+                    <div class="w-full md:w-1/2 px-3 mb-6">
+                        <label for="account_no" class="block text-sm font-medium text-gray-700">Account Number</label>
+                        <input type="text" id="account_no" name="account_no" value="<?php echo set_value('account_no', $user['account_no'] ?? ''); ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                    </div>
+                    <div class="w-full md:w-1/2 px-3 mb-6">
+                        <label for="ifsc_code" class="block text-sm font-medium text-gray-700">IFSC Code</label>
+                        <input type="text" id="ifsc_code" name="ifsc_code" value="<?php echo set_value('ifsc_code', $user['ifsc_code'] ?? ''); ?>" class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                    </div>
+                        
+
                     </div>
                 </div>
             </div>
